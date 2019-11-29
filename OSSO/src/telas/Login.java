@@ -1,29 +1,53 @@
 package telas;
 import java.sql.*;
 import acessoBD.ConexaoBD;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author manoel.neto
  */
 
+/*Caixa de Login - preparação*/
 public class Login extends javax.swing.JFrame {
     Connection conecta = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
     
+    /*Método para autenticação*/
+    public void Logar(){
+        String sql = "select * from usuarios where login = ? and senha = ?";
+        try {
+            pst = conecta.prepareStatement(sql);
+            pst.setString(1, campouser.getText());
+            pst.setString(2, campopw.getText());
+            rs = pst.executeQuery();
+            
+            if (rs.next()){
+                Principal telainicio = new Principal();
+                telainicio.setVisible(true);
+                this.dispose();
+                conecta.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou Senha inválidos");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     /**
-     * Creates new form Login
+     * Cria novo formulario da classe Login
+     * Conexão inicial com o banco e tratamento
      */
+    
     public Login() {
         initComponents();
         conecta = ConexaoBD.conector();
-        System.out.println(conecta);
         
-        if (conecta != null) {
-            statusbanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png")));
+        if (conecta == null) {
+            JOptionPane.showMessageDialog(null, "Falha ao conectar ao banco de dados");
         } else {
-            statusbanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/error.png")));
+            statusbanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png")));
         }
     }
 
@@ -36,27 +60,27 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        textouser = new javax.swing.JLabel();
+        textopw = new javax.swing.JLabel();
+        campouser = new javax.swing.JTextField();
         botaoLogin = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        campopw = new javax.swing.JPasswordField();
         statusbanco = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        textoTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OSSO Login");
         setResizable(false);
 
-        jLabel1.setText("Usuário");
-        jLabel1.setAutoscrolls(true);
+        textouser.setText("Usuário");
+        textouser.setAutoscrolls(true);
 
-        jLabel2.setText("Senha");
-        jLabel2.setAutoscrolls(true);
+        textopw.setText("Senha");
+        textopw.setAutoscrolls(true);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        campouser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                campouserActionPerformed(evt);
             }
         });
 
@@ -71,9 +95,9 @@ public class Login extends javax.swing.JFrame {
         statusbanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/error.png"))); // NOI18N
         statusbanco.setText("Conexão com o banco de dados");
 
-        jLabel3.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("OSSO - Ordem de Serviço da Sistema Online");
+        textoTitulo.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        textoTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoTitulo.setText("OSSO - Ordem de Serviço da Sistema Online");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,7 +106,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textoTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(statusbanco)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -91,31 +115,31 @@ public class Login extends javax.swing.JFrame {
                 .addGap(71, 71, 71)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(textouser)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textopw, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campouser, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botaoLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(campopw, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(61, 61, 61))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textouser, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campouser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textopw, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campopw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botaoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
@@ -127,12 +151,13 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void campouserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campouserActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_campouserActionPerformed
 
     private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLoginActionPerformed
-        // TODO add your handling code here:
+        /*Chamada do metodo para autenticar no banco quando tocar em LOGAR*/
+        Logar();
     }//GEN-LAST:event_botaoLoginActionPerformed
 
     /**
@@ -163,7 +188,7 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Criar e mostrar o formulario */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
@@ -173,11 +198,11 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoLogin;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField campopw;
+    private javax.swing.JTextField campouser;
     private javax.swing.JLabel statusbanco;
+    private javax.swing.JLabel textoTitulo;
+    private javax.swing.JLabel textopw;
+    private javax.swing.JLabel textouser;
     // End of variables declaration//GEN-END:variables
 }

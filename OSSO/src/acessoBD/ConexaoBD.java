@@ -19,7 +19,6 @@ public class ConexaoBD {
             conecta = DriverManager.getConnection(caminho, user, password);
             return conecta;
         } catch (Exception e) {
-            System.out.println(e);
             return null;
         }
     }
