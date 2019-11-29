@@ -35,6 +35,7 @@ public class Principal extends javax.swing.JFrame {
         img = new javax.swing.JLabel();
         nomeUsuario = new javax.swing.JLabel();
         data = new javax.swing.JLabel();
+        textoTipouser = new javax.swing.JLabel();
         barramenu = new javax.swing.JMenuBar();
         menuOpcoes = new javax.swing.JMenu();
         itemSair = new javax.swing.JMenuItem();
@@ -56,15 +57,17 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        areadetrab.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout areadetrabLayout = new javax.swing.GroupLayout(areadetrab);
         areadetrab.setLayout(areadetrabLayout);
         areadetrabLayout.setHorizontalGroup(
             areadetrabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 501, Short.MAX_VALUE)
+            .addGap(0, 615, Short.MAX_VALUE)
         );
         areadetrabLayout.setVerticalGroup(
             areadetrabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 412, Short.MAX_VALUE)
+            .addGap(0, 445, Short.MAX_VALUE)
         );
 
         img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/iconfinder_Untitled-3-14_3783075.png"))); // NOI18N
@@ -74,6 +77,8 @@ public class Principal extends javax.swing.JFrame {
 
         data.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         data.setText("data");
+
+        textoTipouser.setText("tipo-de-usuario");
 
         menuOpcoes.setText("Opções");
 
@@ -102,6 +107,11 @@ public class Principal extends javax.swing.JFrame {
 
         itemUsuarios.setText("Usuários do Sistema");
         itemUsuarios.setEnabled(false);
+        itemUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemUsuariosActionPerformed(evt);
+            }
+        });
         menuCadastro.add(itemUsuarios);
 
         barramenu.add(menuCadastro);
@@ -134,30 +144,35 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nomeUsuario)
-                    .addComponent(data)
-                    .addComponent(img))
-                .addGap(0, 27, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nomeUsuario)
                         .addGap(18, 18, 18)
-                        .addComponent(data)
+                        .addComponent(textoTipouser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(img))
-                    .addComponent(areadetrab))
+                        .addComponent(data)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(img, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                        .addGap(4, 4, 4))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(img)
+                    .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nomeUsuario)
+                    .addComponent(data)
+                    .addComponent(textoTipouser))
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(692, 481));
+        setSize(new java.awt.Dimension(765, 536));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -185,6 +200,13 @@ public class Principal extends javax.swing.JFrame {
         Sobre chamarsobre = new Sobre();
         chamarsobre.setVisible(true);
     }//GEN-LAST:event_itemSobreActionPerformed
+
+    private void itemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuariosActionPerformed
+        /*Opção de cadastro de usuários*/
+        Usuario cad_usuario = new Usuario();
+        cad_usuario.setVisible(true);
+        areadetrab.add(cad_usuario);
+    }//GEN-LAST:event_itemUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,6 +258,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenu menuOpcoes;
     public static javax.swing.JMenu menuRelatorio;
-    private javax.swing.JLabel nomeUsuario;
+    public static javax.swing.JLabel nomeUsuario;
+    public static javax.swing.JLabel textoTipouser;
     // End of variables declaration//GEN-END:variables
 }

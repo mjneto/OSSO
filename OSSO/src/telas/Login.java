@@ -1,6 +1,8 @@
 package telas;
+
 import java.sql.*;
 import acessoBD.ConexaoBD;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,9 +26,23 @@ public class Login extends javax.swing.JFrame {
             rs = pst.executeQuery();
             
             if (rs.next()){
-                Principal telainicio = new Principal();
-                telainicio.setVisible(true);
-                this.dispose();
+                /*checagem no banco se o usuario é admin (is_admin = true)*/
+                boolean perfil = rs.getBoolean(6);
+                if (perfil == true) {
+                    Principal telainicio = new Principal();
+                    telainicio.setVisible(true);
+                    Principal.menuRelatorio.setEnabled(true);
+                    Principal.itemUsuarios.setEnabled(true);
+                    Principal.textoTipouser.setText("Administrador");
+                    Principal.textoTipouser.setForeground(Color.red);
+                    this.dispose();
+                } else {
+                    Principal telainicio = new Principal();
+                    telainicio.setVisible(true);
+                    Principal.textoTipouser.setVisible(false);
+                    this.dispose();
+                }
+                Principal.nomeUsuario.setText(rs.getString(2));
                 conecta.close();
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário ou Senha inválidos");
