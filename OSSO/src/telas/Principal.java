@@ -70,7 +70,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 445, Short.MAX_VALUE)
         );
 
-        img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/iconfinder_Untitled-3-14_3783075.png"))); // NOI18N
+        img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/iconOSSO.png"))); // NOI18N
 
         nomeUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         nomeUsuario.setText("usuario");
@@ -144,35 +144,36 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nomeUsuario)
                         .addGap(18, 18, 18)
                         .addComponent(textoTipouser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(data)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(img, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                        .addGap(4, 4, 4))))
+                        .addComponent(data))
+                    .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(img)
-                    .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeUsuario)
                     .addComponent(data)
-                    .addComponent(textoTipouser))
-                .addContainerGap())
+                    .addComponent(textoTipouser, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)))
         );
 
-        setSize(new java.awt.Dimension(765, 536));
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {data, nomeUsuario});
+
+        setSize(new java.awt.Dimension(765, 539));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

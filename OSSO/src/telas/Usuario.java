@@ -27,27 +27,18 @@ public class Usuario extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
-        buttonGroup4 = new javax.swing.ButtonGroup();
-        buttonGroup5 = new javax.swing.ButtonGroup();
-        buttonGroup6 = new javax.swing.ButtonGroup();
-        buttonGroup7 = new javax.swing.ButtonGroup();
-        buttonGroup8 = new javax.swing.ButtonGroup();
         textoID = new javax.swing.JLabel();
-        textoNome = new javax.swing.JLabel();
-        textoLogin = new javax.swing.JLabel();
-        textoSenha = new javax.swing.JLabel();
-        textoPerfil = new javax.swing.JLabel();
-        cadastroID = new javax.swing.JTextField();
-        cadastroNome = new javax.swing.JTextField();
-        cadastroLogin = new javax.swing.JTextField();
-        cadastroSenha = new javax.swing.JPasswordField();
-        cadastroPerfil = new javax.swing.JComboBox<>();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        campocadastroID = new javax.swing.JTextField();
+        textoUser = new javax.swing.JLabel();
+        campocadastroUser = new javax.swing.JTextField();
         textoFone = new javax.swing.JLabel();
-        cadastroFone = new javax.swing.JTextField();
+        campocadastroFone = new javax.swing.JTextField();
+        textoLogin = new javax.swing.JLabel();
+        campocadastroLogin = new javax.swing.JTextField();
+        textoSenha = new javax.swing.JLabel();
+        campocadastroSenha = new javax.swing.JPasswordField();
+        textoPerfil = new javax.swing.JLabel();
+        campocadastroPerfil = new javax.swing.JComboBox<>();
         botaoCreate = new javax.swing.JButton();
         botaoRead = new javax.swing.JButton();
         botaoUpdate = new javax.swing.JButton();
@@ -56,100 +47,85 @@ public class Usuario extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setTitle("Cadastro de Usuários do Sistema");
+        setToolTipText("");
         setPreferredSize(new java.awt.Dimension(615, 445));
 
-        textoID.setText("Código ID");
+        textoID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoID.setText("CódigoID");
 
-        textoNome.setText("Nome");
-
-        textoLogin.setText("Login");
-
-        textoSenha.setText("Senha");
-
-        textoPerfil.setText("Perfil");
-
-        cadastroNome.addActionListener(new java.awt.event.ActionListener() {
+        campocadastroID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastroNomeActionPerformed(evt);
+                campocadastroIDActionPerformed(evt);
             }
         });
 
-        cadastroLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastroLoginActionPerformed(evt);
-            }
-        });
+        textoUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoUser.setText("Nome");
 
-        cadastroSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastroSenhaActionPerformed(evt);
-            }
-        });
-
-        cadastroPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuário Comum" }));
-
-        jRadioButton1.setText("jRadioButton1");
-
+        textoFone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoFone.setText("Telefone");
 
-        cadastroFone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastroFoneActionPerformed(evt);
-            }
-        });
+        textoLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoLogin.setText("Login");
+
+        textoSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoSenha.setText("Senha");
+
+        textoPerfil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textoPerfil.setText("Perfil");
+
+        campocadastroPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuário Comum" }));
 
         botaoCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/create.png"))); // NOI18N
         botaoCreate.setToolTipText("Adicionar");
-        botaoCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         botaoRead.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/read.png"))); // NOI18N
         botaoRead.setToolTipText("Pesquisar");
-        botaoRead.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         botaoUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
-        botaoUpdate.setToolTipText("Modificar");
-        botaoUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoUpdate.setToolTipText("Alterar");
 
         botaoDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete.png"))); // NOI18N
         botaoDelete.setToolTipText("Excluir");
-        botaoDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(124, 124, 124)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                .addContainerGap(111, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(botaoCreate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoRead)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textoID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoFone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botaoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(110, 110, 110))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(textoID)
+                            .addComponent(textoLogin)
+                            .addComponent(textoUser)
+                            .addComponent(textoFone)
+                            .addComponent(textoSenha)
+                            .addComponent(textoPerfil))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cadastroPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                                .addComponent(jRadioButton1))
-                            .addComponent(cadastroLogin, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cadastroFone, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cadastroNome, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cadastroID, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cadastroSenha))))
-                .addContainerGap(131, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campocadastroPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(campocadastroFone)
+                                .addComponent(campocadastroLogin)
+                                .addComponent(campocadastroID)
+                                .addComponent(campocadastroUser)
+                                .addComponent(campocadastroSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(119, 119, 119))))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoFone, textoID, textoLogin, textoPerfil, textoSenha, textoUser});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {botaoCreate, botaoDelete, botaoRead, botaoUpdate});
 
@@ -158,37 +134,38 @@ public class Usuario extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoID)
-                    .addComponent(cadastroID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campocadastroID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoID, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cadastroNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textoNome))
+                    .addComponent(campocadastroUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoUser))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cadastroFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campocadastroFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textoFone))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cadastroLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campocadastroLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textoLogin))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cadastroSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campocadastroSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textoSenha))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cadastroPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textoPerfil)
-                    .addComponent(jRadioButton1))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoRead, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botaoUpdate, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botaoDelete, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(77, Short.MAX_VALUE))
+                    .addComponent(campocadastroPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoPerfil))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCreate)
+                    .addComponent(botaoRead)
+                    .addComponent(botaoUpdate)
+                    .addComponent(botaoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {textoFone, textoID, textoLogin, textoPerfil, textoSenha, textoUser});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {botaoCreate, botaoDelete, botaoRead, botaoUpdate});
 
@@ -211,32 +188,27 @@ public class Usuario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cadastroFoneActionPerformed
 
+    private void campocadastroIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campocadastroIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campocadastroIDActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCreate;
     private javax.swing.JButton botaoDelete;
     private javax.swing.JButton botaoRead;
     private javax.swing.JButton botaoUpdate;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.ButtonGroup buttonGroup4;
-    private javax.swing.ButtonGroup buttonGroup5;
-    private javax.swing.ButtonGroup buttonGroup6;
-    private javax.swing.ButtonGroup buttonGroup7;
-    private javax.swing.ButtonGroup buttonGroup8;
-    private javax.swing.JTextField cadastroFone;
-    private javax.swing.JTextField cadastroID;
-    private javax.swing.JTextField cadastroLogin;
-    private javax.swing.JTextField cadastroNome;
-    private javax.swing.JComboBox<String> cadastroPerfil;
-    private javax.swing.JPasswordField cadastroSenha;
-    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JTextField campocadastroFone;
+    private javax.swing.JTextField campocadastroID;
+    private javax.swing.JTextField campocadastroLogin;
+    private javax.swing.JComboBox<String> campocadastroPerfil;
+    private javax.swing.JPasswordField campocadastroSenha;
+    private javax.swing.JTextField campocadastroUser;
     private javax.swing.JLabel textoFone;
     private javax.swing.JLabel textoID;
     private javax.swing.JLabel textoLogin;
-    private javax.swing.JLabel textoNome;
     private javax.swing.JLabel textoPerfil;
     private javax.swing.JLabel textoSenha;
+    private javax.swing.JLabel textoUser;
     // End of variables declaration//GEN-END:variables
 }
