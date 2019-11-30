@@ -9,15 +9,85 @@ package telas;
  *
  * @author manoel.neto
  */
-public class Usuario extends javax.swing.JInternalFrame {
+import java.sql.*;
+import acessoBD.ConexaoBD;
+import javax.swing.JOptionPane;
 
+public class Usuario extends javax.swing.JInternalFrame {
+    Connection conecta = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
     /**
-     * Creates new form Cadastro
+     * Cria novo formulário da classe Cadastro
      */
     public Usuario() {
         initComponents();
+        conecta = ConexaoBD.conector();
     }
-
+    
+    public void pesquisar(){
+        String sql = "select * from usuarios where iduser = ?";
+        try {
+            pst = conecta.prepareStatement(sql);
+            pst.setString(1, campocadastroID.getText());
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                campocadastroUser.setText(rs.getString(2));
+                campocadastroFone.setText(rs.getString(3));
+                campocadastroLogin.setText(rs.getString(4));
+                campocadastroSenha.setText(rs.getString(5));
+                if (rs.getBoolean(6) == true){
+                    campocadastroPerfil.setSelectedItem("Administrador");
+                } else {
+                    campocadastroPerfil.setSelectedItem("Usuário Comum");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário não encontrado");
+                campocadastroUser.setText(null);
+                campocadastroFone.setText(null);
+                campocadastroLogin.setText(null);
+                campocadastroSenha.setText(null);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void cadastrar(){
+        /*Função de insert sql, lendo dos campos*/
+        String sql = "insert into usuarios(usuario, fone, login, senha, is_admin) values(?, ?, ?, ?, ?)";
+        try {
+            pst = conecta.prepareStatement(sql);
+            pst.setString(1, campocadastroUser.getText());
+            pst.setString(2, campocadastroFone.getText());
+            pst.setString(3, campocadastroLogin.getText());
+            pst.setString(4, campocadastroSenha.getText());
+            if (campocadastroPerfil.getSelectedItem() == (String) "Administrador") {
+                pst.setBoolean(5, true);
+            } else {
+                pst.setBoolean(5, false);
+            }
+            /*Tratamento de campos obrigatórios*/
+            if ((campocadastroID.getText().isEmpty() || (campocadastroUser.getText().isEmpty() || (campocadastroLogin.getText().isEmpty() || campocadastroSenha.getText().isEmpty())))){
+                JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios");
+            } else {
+                /*Execução do insert*/
+                int adicionado = pst.executeUpdate();
+                /*Informando cadastro correto e limpando campos*/
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                    campocadastroID.setText(null);
+                    campocadastroUser.setText(null);
+                    campocadastroFone.setText(null);
+                    campocadastroLogin.setText(null);
+                    campocadastroSenha.setText(null);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,7 +117,7 @@ public class Usuario extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Cadastro de Usuários do Sistema");
+        setTitle("Usuários do Sistema");
         setToolTipText("");
         setPreferredSize(new java.awt.Dimension(615, 445));
 
@@ -76,18 +146,39 @@ public class Usuario extends javax.swing.JInternalFrame {
         textoPerfil.setText("Perfil");
 
         campocadastroPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuário Comum" }));
+        campocadastroPerfil.setToolTipText("");
+        campocadastroPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campocadastroPerfilActionPerformed(evt);
+            }
+        });
 
         botaoCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/create.png"))); // NOI18N
         botaoCreate.setToolTipText("Adicionar");
+        botaoCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        botaoCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCreateActionPerformed(evt);
+            }
+        });
 
         botaoRead.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/read.png"))); // NOI18N
         botaoRead.setToolTipText("Pesquisar");
+        botaoRead.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        botaoRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoReadActionPerformed(evt);
+                botaoReadActionInit(evt);
+            }
+        });
 
         botaoUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
         botaoUpdate.setToolTipText("Alterar");
+        botaoUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
 
         botaoDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete.png"))); // NOI18N
         botaoDelete.setToolTipText("Excluir");
+        botaoDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,6 +282,22 @@ public class Usuario extends javax.swing.JInternalFrame {
     private void campocadastroIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campocadastroIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campocadastroIDActionPerformed
+
+    private void botaoReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoReadActionPerformed
+        pesquisar();
+    }//GEN-LAST:event_botaoReadActionPerformed
+
+    private void campocadastroPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campocadastroPerfilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campocadastroPerfilActionPerformed
+
+    private void botaoCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCreateActionPerformed
+        cadastrar();
+    }//GEN-LAST:event_botaoCreateActionPerformed
+
+    private void botaoReadActionInit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoReadActionInit
+        
+    }//GEN-LAST:event_botaoReadActionInit
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
