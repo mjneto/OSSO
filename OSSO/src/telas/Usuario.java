@@ -5,17 +5,77 @@
  */
 package telas;
 
+import java.sql.*;
+import acessoBD.ConexaoBD;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author manoel.neto
  */
 public class Usuario extends javax.swing.JInternalFrame {
 
+    Connection conecta = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
     /**
      * Creates new form Cadastro
      */
     public Usuario() {
         initComponents();
+        conecta = ConexaoBD.conector();
+    }
+
+    private void alterar() {
+        String sql = "update usuarios set usuario=?, fone=?, login=?, senha=?, perfil=? where iduser=?";
+        try {
+            pst = conecta.prepareStatement(sql);
+            pst.setString(1, campocadastroUser.getText());
+            pst.setString(2, campocadastroFone.getText());
+            pst.setString(3, campocadastroLogin.getText());
+            pst.setString(4, campocadastroSenha.getText());
+            pst.setString(5, campocadastroPerfil.getSelectedItem().toString());
+            pst.setString(6, campocadastroID.getText());
+            if (campocadastroID.getText().isEmpty() || campocadastroUser.getText().isEmpty() || campocadastroLogin.getText().isEmpty() || campocadastroSenha.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+            } else {
+                int alterado = pst.executeUpdate();
+
+                if (alterado > 0) {
+                    JOptionPane.showMessageDialog(null, "Os dados foram alterados com sucesso!");
+                    campocadastroID.setText(null);
+                    campocadastroUser.setText(null);
+                    campocadastroFone.setText(null);
+                    campocadastroLogin.setText(null);
+                    campocadastroSenha.setText(null);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    private void remover() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este usuário?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "delete from usuarios where iduser=?";
+            try {
+                pst = conecta.prepareStatement(sql);
+                pst.setString(1, campocadastroUser.getText());
+                int apagar = pst.executeUpdate();
+                if (apagar > 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário Removido com sucesso!");
+                    campocadastroID.setText(null);
+                    campocadastroUser.setText(null);
+                    campocadastroFone.setText(null);
+                    campocadastroLogin.setText(null);
+                    campocadastroSenha.setText(null);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
     }
 
     /**
@@ -85,9 +145,19 @@ public class Usuario extends javax.swing.JInternalFrame {
 
         botaoUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
         botaoUpdate.setToolTipText("Alterar");
+        botaoUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoUpdateActionPerformed(evt);
+            }
+        });
 
         botaoDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete.png"))); // NOI18N
         botaoDelete.setToolTipText("Excluir");
+        botaoDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,6 +261,16 @@ public class Usuario extends javax.swing.JInternalFrame {
     private void campocadastroIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campocadastroIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campocadastroIDActionPerformed
+
+    private void botaoUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoUpdateActionPerformed
+        // Vai alterar os dados colocados no banco
+        alterar();
+    }//GEN-LAST:event_botaoUpdateActionPerformed
+
+    private void botaoDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDeleteActionPerformed
+        // Vai deletar o usuario
+        remover();
+    }//GEN-LAST:event_botaoDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
