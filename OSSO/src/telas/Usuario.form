@@ -125,9 +125,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="campocadastroID">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campocadastroIDActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="textoUser">
       <Properties>
@@ -177,9 +174,6 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campocadastroPerfilActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -209,7 +203,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoReadActionPerformed,botaoReadActionInit"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoReadActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botaoUpdate">
@@ -222,6 +216,9 @@
           <Color id="Cursor em Forma de Ampulheta"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoUpdateActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botaoDelete">
       <Properties>
@@ -233,6 +230,9 @@
           <Color id="Cursor em Forma de Ampulheta"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoDeleteActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

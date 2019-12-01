@@ -5,13 +5,14 @@
  */
 package telas;
 
+import java.sql.*;
+import acessoBD.ConexaoBD;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author manoel.neto
  */
-import java.sql.*;
-import acessoBD.ConexaoBD;
-import javax.swing.JOptionPane;
 
 public class Usuario extends javax.swing.JInternalFrame {
     Connection conecta = null;
@@ -23,6 +24,61 @@ public class Usuario extends javax.swing.JInternalFrame {
     public Usuario() {
         initComponents();
         conecta = ConexaoBD.conector();
+    }
+
+    private void alterar() {
+        String sql = "update usuarios set usuario = ?, fone = ?, login = ?, senha = ?, is_admin = ? where iduser = ?";
+        
+        try {
+            pst = conecta.prepareStatement(sql);
+            pst.setString(1, campocadastroUser.getText());
+            pst.setString(2, campocadastroFone.getText());
+            pst.setString(3, campocadastroLogin.getText());
+            pst.setString(4, campocadastroSenha.getText());
+            if (campocadastroPerfil.getSelectedItem() == (String) "Administrador") {
+                pst.setBoolean(5, true);
+            } else {
+                pst.setBoolean(5, false);
+            }
+            pst.setString(6, campocadastroID.getText());
+            if (campocadastroUser.getText().isEmpty() || campocadastroLogin.getText().isEmpty() || campocadastroSenha.getText().isEmpty() || campocadastroID.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios");
+            } else {
+                int alterado = pst.executeUpdate();
+                if (alterado > 0) {
+                    JOptionPane.showMessageDialog(null, "Dados alterados");
+                    campocadastroID.setText(null);
+                    campocadastroUser.setText(null);
+                    campocadastroFone.setText(null);
+                    campocadastroLogin.setText(null);
+                    campocadastroSenha.setText(null);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    private void remover() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Deseja remover este usuário?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "delete from usuarios where iduser = ?";
+            try {
+                pst = conecta.prepareStatement(sql);
+                pst.setString(1, campocadastroID.getText());
+                int apagar = pst.executeUpdate();
+                if (apagar > 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário Removido");
+                    campocadastroID.setText(null);
+                    campocadastroUser.setText(null);
+                    campocadastroFone.setText(null);
+                    campocadastroLogin.setText(null);
+                    campocadastroSenha.setText(null);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
     }
     
     public void pesquisar(){
@@ -124,12 +180,6 @@ public class Usuario extends javax.swing.JInternalFrame {
         textoID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoID.setText("CódigoID");
 
-        campocadastroID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campocadastroIDActionPerformed(evt);
-            }
-        });
-
         textoUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoUser.setText("Nome");
 
@@ -147,11 +197,6 @@ public class Usuario extends javax.swing.JInternalFrame {
 
         campocadastroPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuário Comum" }));
         campocadastroPerfil.setToolTipText("");
-        campocadastroPerfil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campocadastroPerfilActionPerformed(evt);
-            }
-        });
 
         botaoCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/create.png"))); // NOI18N
         botaoCreate.setToolTipText("Adicionar");
@@ -168,17 +213,26 @@ public class Usuario extends javax.swing.JInternalFrame {
         botaoRead.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoReadActionPerformed(evt);
-                botaoReadActionInit(evt);
             }
         });
 
         botaoUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
         botaoUpdate.setToolTipText("Alterar");
         botaoUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        botaoUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoUpdateActionPerformed(evt);
+            }
+        });
 
         botaoDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete.png"))); // NOI18N
         botaoDelete.setToolTipText("Excluir");
         botaoDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        botaoDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -263,41 +317,25 @@ public class Usuario extends javax.swing.JInternalFrame {
         setBounds(0, 0, 615, 445);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadastroSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cadastroSenhaActionPerformed
-
-    private void cadastroNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cadastroNomeActionPerformed
-
-    private void cadastroLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cadastroLoginActionPerformed
-
-    private void cadastroFoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroFoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cadastroFoneActionPerformed
-
-    private void campocadastroIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campocadastroIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campocadastroIDActionPerformed
-
     private void botaoReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoReadActionPerformed
+        /*Lê uma entrada do banco*/
         pesquisar();
     }//GEN-LAST:event_botaoReadActionPerformed
 
-    private void campocadastroPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campocadastroPerfilActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campocadastroPerfilActionPerformed
-
     private void botaoCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCreateActionPerformed
+        /*Cria um usuario no banco*/
         cadastrar();
     }//GEN-LAST:event_botaoCreateActionPerformed
 
-    private void botaoReadActionInit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoReadActionInit
-        
-    }//GEN-LAST:event_botaoReadActionInit
+    private void botaoUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoUpdateActionPerformed
+        // Vai alterar os dados colocados no banco
+        alterar();
+    }//GEN-LAST:event_botaoUpdateActionPerformed
+
+    private void botaoDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDeleteActionPerformed
+        // Vai deletar o usuario
+        remover();
+    }//GEN-LAST:event_botaoDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
