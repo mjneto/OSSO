@@ -3,6 +3,7 @@ package telas;
 import java.sql.*;
 import acessoBD.ConexaoBD;
 import java.awt.Color;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
@@ -58,10 +59,12 @@ public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();
-        conecta = ConexaoBD.conector();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icones/OSSOicon.png")));
         
+        conecta = ConexaoBD.conector();
         if (conecta == null) {
             JOptionPane.showMessageDialog(null, "Falha ao conectar ao banco de dados");
+            System.exit(0);
         } else {
             statusbanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ok.png")));
         }

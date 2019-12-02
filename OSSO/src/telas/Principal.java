@@ -5,6 +5,7 @@
  */
 package telas;
 
+import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -20,6 +21,7 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icones/OSSOicon.png")));
     }
 
     /**
@@ -32,7 +34,6 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         areadetrab = new javax.swing.JDesktopPane();
-        img = new javax.swing.JLabel();
         nomeUsuario = new javax.swing.JLabel();
         data = new javax.swing.JLabel();
         textoTipouser = new javax.swing.JLabel();
@@ -59,27 +60,28 @@ public class Principal extends javax.swing.JFrame {
 
         areadetrab.setBackground(new java.awt.Color(255, 255, 255));
         areadetrab.setName(""); // NOI18N
+        areadetrab.setPreferredSize(new java.awt.Dimension(737, 443));
 
         javax.swing.GroupLayout areadetrabLayout = new javax.swing.GroupLayout(areadetrab);
         areadetrab.setLayout(areadetrabLayout);
         areadetrabLayout.setHorizontalGroup(
             areadetrabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 615, Short.MAX_VALUE)
+            .addGap(0, 727, Short.MAX_VALUE)
         );
         areadetrabLayout.setVerticalGroup(
             areadetrabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 445, Short.MAX_VALUE)
+            .addGap(0, 448, Short.MAX_VALUE)
         );
-
-        img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/iconOSSO.png"))); // NOI18N
 
         nomeUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         nomeUsuario.setText("usuario");
 
         data.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         data.setText("data");
+        data.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         textoTipouser.setText("tipo-de-usuario");
+        textoTipouser.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         menuOpcoes.setText("Opções");
 
@@ -150,40 +152,36 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nomeUsuario)
                         .addGap(18, 18, 18)
                         .addComponent(textoTipouser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(data))
-                    .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoTipouser, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nomeUsuario)
+                    .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoTipouser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nomeUsuario)
-                        .addComponent(data))))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {data, nomeUsuario});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {nomeUsuario, textoTipouser});
 
-        setSize(new java.awt.Dimension(765, 539));
+        setSize(new java.awt.Dimension(755, 536));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void itemOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOSActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_itemOSActionPerformed
@@ -249,7 +247,7 @@ public class Principal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Cria e mostra o formulario */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -262,7 +260,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane areadetrab;
     private javax.swing.JMenuBar barramenu;
     private javax.swing.JLabel data;
-    private javax.swing.JLabel img;
     private javax.swing.JMenuItem itemClientes;
     private javax.swing.JMenuItem itemOS;
     private javax.swing.JMenuItem itemSair;
