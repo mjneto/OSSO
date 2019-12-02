@@ -33,20 +33,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="111" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="botaoCreate" linkSize="3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="botaoRead" linkSize="3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="botaoUpdate" linkSize="3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="botaoDelete" linkSize="3" min="-2" pref="90" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="textoID" linkSize="1" min="-2" max="-2" attributes="0"/>
                           <Component id="textoLogin" linkSize="1" min="-2" max="-2" attributes="0"/>
@@ -59,30 +49,39 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="campocadastroPerfil" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="campocadastroFone" max="32767" attributes="0"/>
+                              <Component id="campocadastroFone" pref="316" max="32767" attributes="0"/>
                               <Component id="campocadastroLogin" alignment="0" max="32767" attributes="0"/>
                               <Component id="campocadastroID" alignment="0" max="32767" attributes="0"/>
-                              <Component id="campocadastroUser" alignment="0" max="32767" attributes="0"/>
-                              <Component id="campocadastroSenha" alignment="0" min="-2" pref="298" max="-2" attributes="0"/>
+                              <Component id="campocadastroNome" alignment="0" max="32767" attributes="0"/>
+                              <Component id="campocadastroSenha" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="botaoCreate" linkSize="3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="botaoRead" linkSize="3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="botaoUpdate" linkSize="3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="botaoDelete" linkSize="3" min="-2" pref="90" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="campocadastroID" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textoID" linkSize="2" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="campocadastroUser" alignment="3" max="-2" attributes="0"/>
+                  <Component id="campocadastroNome" alignment="3" max="-2" attributes="0"/>
                   <Component id="textoUser" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -105,7 +104,7 @@
                   <Component id="campocadastroPerfil" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textoPerfil" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="55" max="32767" attributes="0"/>
+              <EmptySpace pref="54" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="botaoCreate" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botaoRead" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -129,10 +128,10 @@
     <Component class="javax.swing.JLabel" name="textoUser">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Nome"/>
+        <Property name="text" type="java.lang.String" value="* Nome"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="campocadastroUser">
+    <Component class="javax.swing.JTextField" name="campocadastroNome">
     </Component>
     <Component class="javax.swing.JLabel" name="textoFone">
       <Properties>
@@ -145,7 +144,7 @@
     <Component class="javax.swing.JLabel" name="textoLogin">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Login"/>
+        <Property name="text" type="java.lang.String" value="* Login"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="campocadastroLogin">
@@ -153,7 +152,7 @@
     <Component class="javax.swing.JLabel" name="textoSenha">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Senha"/>
+        <Property name="text" type="java.lang.String" value="* Senha"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="campocadastroSenha">
@@ -161,15 +160,16 @@
     <Component class="javax.swing.JLabel" name="textoPerfil">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Perfil"/>
+        <Property name="text" type="java.lang.String" value="* Perfil"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="campocadastroPerfil">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Administrador"/>
-            <StringItem index="1" value="Usu&#xe1;rio Comum"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Usu&#xe1;rio Comum"/>
+            <StringItem index="1" value="Administrador"/>
+            <StringItem index="2" value=" "/>
           </StringArray>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>

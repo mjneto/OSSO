@@ -96,6 +96,11 @@ public class Principal extends javax.swing.JFrame {
         menuCadastro.setText("Cadastro");
 
         itemClientes.setText("Clientes");
+        itemClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemClientesActionPerformed(evt);
+            }
+        });
         menuCadastro.add(itemClientes);
 
         itemOS.setText("Ordem de Serviço");
@@ -191,7 +196,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void itemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSairActionPerformed
-        /*Opção de sair*/
+        /*Opção do menu Opções > Sair*/
         int sair = JOptionPane.showConfirmDialog(null, "Deseja sair?","Sair",JOptionPane.YES_NO_OPTION);
         if (sair == JOptionPane.YES_OPTION) {
             System.exit(0);
@@ -199,17 +204,24 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSairActionPerformed
 
     private void itemSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSobreActionPerformed
-        /*Opção de sobre*/
+        /*Opção do menu Ajuda > Sobre*/
         Sobre chamarsobre = new Sobre();
         chamarsobre.setVisible(true);
     }//GEN-LAST:event_itemSobreActionPerformed
 
     private void itemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuariosActionPerformed
-        /*Opção de cadastro de usuários*/
+        /*Opção do menu Cadastro >  Usuários do Sistema*/
         Usuario cad_usuario = new Usuario();
         cad_usuario.setVisible(true);
         areadetrab.add(cad_usuario);
     }//GEN-LAST:event_itemUsuariosActionPerformed
+
+    private void itemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemClientesActionPerformed
+        /*Opção do menu Cadastro > Clientes*/
+        Cliente cad_cliente = new Cliente();
+        cad_cliente.setVisible(true);
+        areadetrab.add(cad_cliente);
+    }//GEN-LAST:event_itemClientesActionPerformed
 
     /**
      * @param args the command line arguments
