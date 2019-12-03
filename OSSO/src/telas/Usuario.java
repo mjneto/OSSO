@@ -24,6 +24,7 @@ public class Usuario extends javax.swing.JInternalFrame {
     public Usuario() {
         initComponents();
         conecta = ConexaoBD.conector();
+        botaoCancela.setVisible(false);
     }
 
     private void alterar() {
@@ -54,6 +55,16 @@ public class Usuario extends javax.swing.JInternalFrame {
                     campocadastroLogin.setText(null);
                     campocadastroSenha.setText(null);
                 }
+                botaoCreate.setEnabled(true);
+                botaoRead.setEnabled(true);
+                botaoUpdate.setEnabled(false);
+                botaoDelete.setEnabled(false);
+                campocadastroID.setEnabled(false);
+                campocadastroNome.setEnabled(false);
+                campocadastroFone.setEnabled(false);
+                campocadastroLogin.setEnabled(false);
+                campocadastroSenha.setEnabled(false);
+                campocadastroPerfil.setEnabled(false);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -76,6 +87,16 @@ public class Usuario extends javax.swing.JInternalFrame {
                     campocadastroFone.setText(null);
                     campocadastroLogin.setText(null);
                     campocadastroSenha.setText(null);
+                    botaoCreate.setEnabled(true);
+                    botaoRead.setEnabled(true);
+                    botaoUpdate.setEnabled(false);
+                    botaoDelete.setEnabled(false);
+                    campocadastroID.setEnabled(false);
+                    campocadastroNome.setEnabled(false);
+                    campocadastroFone.setEnabled(false);
+                    campocadastroLogin.setEnabled(false);
+                    campocadastroSenha.setEnabled(false);
+                    campocadastroPerfil.setEnabled(false);
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
@@ -100,6 +121,18 @@ public class Usuario extends javax.swing.JInternalFrame {
                 } else {
                     campocadastroPerfil.setSelectedItem("Usuário Comum");
                 }
+                botaoDelete.setEnabled(true);
+                botaoUpdate.setEnabled(true);
+                campocadastroNome.setEnabled(true);
+                campocadastroNome.setEditable(false);
+                campocadastroFone.setEnabled(true);
+                campocadastroFone.setEditable(false);
+                campocadastroLogin.setEnabled(true);
+                campocadastroLogin.setEditable(false);
+                campocadastroSenha.setEnabled(true);
+                campocadastroSenha.setEditable(false);
+                campocadastroPerfil.setEnabled(true);
+                campocadastroPerfil.setEditable(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário não encontrado");
                 campocadastroNome.setText(null);
@@ -140,6 +173,13 @@ public class Usuario extends javax.swing.JInternalFrame {
                     campocadastroFone.setText(null);
                     campocadastroLogin.setText(null);
                     campocadastroSenha.setText(null);
+                botaoRead.setEnabled(true);
+                campocadastroID.setEnabled(false);
+                campocadastroNome.setEnabled(false);
+                campocadastroFone.setEnabled(false);
+                campocadastroLogin.setEnabled(false);
+                campocadastroSenha.setEnabled(false);
+                campocadastroPerfil.setEnabled(false);
                 }
             }
         } catch (Exception e) {
@@ -172,6 +212,7 @@ public class Usuario extends javax.swing.JInternalFrame {
         botaoRead = new javax.swing.JButton();
         botaoUpdate = new javax.swing.JButton();
         botaoDelete = new javax.swing.JButton();
+        botaoCancela = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Usuários do Sistema");
@@ -182,27 +223,43 @@ public class Usuario extends javax.swing.JInternalFrame {
         textoID.setText("* ID");
         textoID.setToolTipText("Obrigatório");
 
+        campocadastroID.setToolTipText(null);
+        campocadastroID.setEnabled(false);
+
         textoUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoUser.setText("* Nome");
         textoUser.setToolTipText("Obrigatório");
 
+        campocadastroNome.setToolTipText(null);
+        campocadastroNome.setEnabled(false);
+
         textoFone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoFone.setText("Telefone");
+
+        campocadastroFone.setToolTipText(null);
+        campocadastroFone.setEnabled(false);
 
         textoLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoLogin.setText("* Login");
         textoLogin.setToolTipText("Obrigatório");
 
+        campocadastroLogin.setToolTipText(null);
+        campocadastroLogin.setEnabled(false);
+
         textoSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoSenha.setText("* Senha");
         textoSenha.setToolTipText("Obrigatório");
+
+        campocadastroSenha.setToolTipText(null);
+        campocadastroSenha.setEnabled(false);
 
         textoPerfil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoPerfil.setText("* Perfil");
         textoPerfil.setToolTipText("Obrigatório");
 
         campocadastroPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuário Comum", "Administrador" }));
-        campocadastroPerfil.setToolTipText("");
+        campocadastroPerfil.setToolTipText(null);
+        campocadastroPerfil.setEnabled(false);
 
         botaoCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/create.png"))); // NOI18N
         botaoCreate.setToolTipText("Adicionar");
@@ -225,6 +282,7 @@ public class Usuario extends javax.swing.JInternalFrame {
         botaoUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
         botaoUpdate.setToolTipText("Alterar");
         botaoUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoUpdate.setEnabled(false);
         botaoUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoUpdateActionPerformed(evt);
@@ -234,9 +292,17 @@ public class Usuario extends javax.swing.JInternalFrame {
         botaoDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete.png"))); // NOI18N
         botaoDelete.setToolTipText("Excluir");
         botaoDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoDelete.setEnabled(false);
         botaoDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoDeleteActionPerformed(evt);
+            }
+        });
+
+        botaoCancela.setText("Cancelar");
+        botaoCancela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelaActionPerformed(evt);
             }
         });
 
@@ -245,12 +311,13 @@ public class Usuario extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botaoCancela)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botaoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(textoID)
                             .addComponent(textoLogin)
@@ -315,7 +382,9 @@ public class Usuario extends javax.swing.JInternalFrame {
                             .addComponent(campocadastroPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textoPerfil))))
                 .addGap(18, 18, 18)
-                .addComponent(botaoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoCancela))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
@@ -328,26 +397,87 @@ public class Usuario extends javax.swing.JInternalFrame {
 
     private void botaoReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoReadActionPerformed
         /*Lê uma entrada do banco*/
-        pesquisar();
+        if (campocadastroID.isEnabled() == true) {
+            pesquisar();
+        } else {
+            campocadastroID.setEnabled(true);
+            botaoCreate.setEnabled(false);
+            botaoCancela.setVisible(true);
+        }
     }//GEN-LAST:event_botaoReadActionPerformed
 
     private void botaoCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCreateActionPerformed
         /*Cria um usuario no banco*/
-        cadastrar();
+         if (campocadastroNome.isEnabled() == true) {
+            cadastrar();
+        } else {
+            String sql = "select auto_increment from information_schema.tables where table_schema = 'dbosso' and table_name = 'usuarios'";
+            try {
+                pst = conecta.prepareStatement(sql);
+                rs = pst.executeQuery();
+                if (rs.next()) {
+                    campocadastroID.setText(rs.getString(1));
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+            botaoRead.setEnabled(false);
+            campocadastroNome.setEnabled(true);
+            campocadastroFone.setEnabled(true);
+            campocadastroLogin.setEnabled(true);
+            campocadastroSenha.setEnabled(true);
+            campocadastroPerfil.setEnabled(true);
+            botaoCancela.setVisible(true);
+        }
     }//GEN-LAST:event_botaoCreateActionPerformed
 
     private void botaoUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoUpdateActionPerformed
         // Vai alterar os dados colocados no banco
-        alterar();
+        if (campocadastroID.isEnabled() == false) {
+            alterar();
+            botaoCancela.setVisible(false);
+        } else {
+            botaoDelete.setEnabled(false);
+            botaoRead.setEnabled(false);
+            campocadastroID.setEnabled(false);
+            campocadastroNome.setEditable(true);
+            campocadastroFone.setEditable(true);
+            campocadastroLogin.setEditable(true);
+            campocadastroSenha.setEditable(true);
+            campocadastroPerfil.setEnabled(true);
+        }
     }//GEN-LAST:event_botaoUpdateActionPerformed
 
     private void botaoDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDeleteActionPerformed
         // Vai deletar o usuario
-        remover();
+        if (campocadastroID.isEnabled() == true) {
+            remover();
+            botaoCancela.setVisible(false);
+        }
     }//GEN-LAST:event_botaoDeleteActionPerformed
+
+    private void botaoCancelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelaActionPerformed
+        campocadastroID.setEnabled(false);
+        campocadastroNome.setEnabled(false);
+        campocadastroFone.setEnabled(false);
+        campocadastroLogin.setEnabled(false);
+        campocadastroSenha.setEnabled(false);
+        campocadastroPerfil.setEnabled(false);
+        campocadastroID.setText(null);
+        campocadastroNome.setText(null);
+        campocadastroFone.setText(null);
+        campocadastroLogin.setText(null);
+        campocadastroSenha.setText(null);
+        botaoCreate.setEnabled(true);
+        botaoUpdate.setEnabled(false);
+        botaoRead.setEnabled(true);
+        botaoDelete.setEnabled(false);
+        botaoCancela.setVisible(false);
+    }//GEN-LAST:event_botaoCancelaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoCancela;
     private javax.swing.JButton botaoCreate;
     private javax.swing.JButton botaoDelete;
     private javax.swing.JButton botaoRead;
