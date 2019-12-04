@@ -183,7 +183,10 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void itemOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOSActionPerformed
-        // TODO add your handling code here:
+        /*Opção do menu Cadastro > Ordem de Serviço*/
+        OS cad_os = new OS();
+        cad_os.setVisible(true);
+        areadetrab.add(cad_os);
     }//GEN-LAST:event_itemOSActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
