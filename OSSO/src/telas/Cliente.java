@@ -7,8 +7,10 @@ package telas;
 
 import java.sql.*;
 import acessoBD.ConexaoBD;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+import suporte.validadorCPF;
 
 /**
  *
@@ -30,15 +32,16 @@ public class Cliente extends javax.swing.JInternalFrame {
     
     private void cadastrar(){
         /*Função de insert sql, lendo dos campos*/
-        String sql = "insert into clientes(nome_cliente, end_cliente, fone_cliente, email_cliente) values(?, ?, ?, ?)";
+        String sql = "insert into clientes(nome_cliente, cpf_cliente, end_cliente, fone_cliente, email_cliente) values(?, ?, ?, ?, ?)";
         try {
             pst = conecta.prepareStatement(sql);
             pst.setString(1, campoclienteNome.getText());
-            pst.setString(2, campoclienteEndereco.getText());
-            pst.setString(3, campoclienteFone.getText());
-            pst.setString(4, campoclienteEmail.getText());
+            pst.setString(2, campoclienteCPF.getText());
+            pst.setString(3, campoclienteEndereco.getText());
+            pst.setString(4, campoclienteFone.getText());
+            pst.setString(5, campoclienteEmail.getText());
             /*Tratamento de campos obrigatórios*/
-            if (campoclienteNome.getText().isEmpty() || campoclienteFone.getText().isEmpty()){
+            if (campoclienteNome.getText().isEmpty() || campoclienteFone.getText().isEmpty() || campoclienteCPF.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios");
             } else {
                 /*Execução do insert*/
@@ -47,11 +50,14 @@ public class Cliente extends javax.swing.JInternalFrame {
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Cliente Cadastrado");
                     campoclienteNome.setText(null);
+                    campoclienteCPF.setText(null);
                     campoclienteEndereco.setText(null);
                     campoclienteFone.setText(null);
                     campoclienteEmail.setText(null);
                 }
             }
+        } catch (com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException i){
+            JOptionPane.showMessageDialog(null, "CPF já cadastrado");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -59,11 +65,12 @@ public class Cliente extends javax.swing.JInternalFrame {
     
     private void pesquisar(){
         /*Pesquisa uma entrada em texto do campo de busca no banco*/
-        String sql = "select * from clientes where nome_cliente like ?";
+        String sql = "select id_cliente as ID, nome_cliente as Nome, cpf_cliente as CPF, end_cliente as Endereco, fone_cliente as Contato, email_cliente as Email from clientes where nome_cliente like ? or cpf_cliente like ?";
         
         try {
             pst = conecta.prepareStatement(sql);
             pst.setString(1, campoclientePesquisa.getText() + "%");
+            pst.setString(2, campoclientePesquisa.getText() + "%");
             rs = pst.executeQuery();
             /*Usando o rs2xml para preencher tabela*/ 
             tabelaClientes.setModel(DbUtils.resultSetToTableModel(rs));
@@ -74,15 +81,16 @@ public class Cliente extends javax.swing.JInternalFrame {
     
     private void alterar() {
         /*Altera entrada no banco a partir do id*/
-        String sql = "update clientes set nome_cliente = ?, end_cliente = ?, fone_cliente = ?, email_cliente = ? where id_cliente = ?";
+        String sql = "update clientes set nome_cliente = ?, cpf_cliente = ?, end_cliente = ?, fone_cliente = ?, email_cliente = ? where id_cliente = ?";
         
         try {
             pst = conecta.prepareStatement(sql);
             pst.setString(1, campoclienteNome.getText());
-            pst.setString(2, campoclienteEndereco.getText());
-            pst.setString(3, campoclienteFone.getText());
-            pst.setString(4, campoclienteEmail.getText());
-            pst.setString(5, campoclienteID.getText());
+            pst.setString(2, campoclienteCPF.getText());
+            pst.setString(3, campoclienteEndereco.getText());
+            pst.setString(4, campoclienteFone.getText());
+            pst.setString(5, campoclienteEmail.getText());
+            pst.setString(6, campoclienteID.getText());
             if (campoclienteNome.getText().isEmpty() || campoclienteFone.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios");
             } else {
@@ -91,11 +99,15 @@ public class Cliente extends javax.swing.JInternalFrame {
                 if (alterado > 0) {
                     JOptionPane.showMessageDialog(null, "Dados alterados");
                     campoclienteNome.setText(null);
+                    campoclienteID.setText(null);
+                    campoclienteCPF.setText(null);
                     campoclienteEndereco.setText(null);
                     campoclienteFone.setText(null);
                     campoclienteEmail.setText(null);
                 }
             }
+        } catch (com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException i){
+            JOptionPane.showMessageDialog(null, "CPF já cadastrado");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -130,9 +142,10 @@ public class Cliente extends javax.swing.JInternalFrame {
         int usar = tabelaClientes.getSelectedRow();
         campoclienteID.setText(tabelaClientes.getModel().getValueAt(usar, 0).toString());
         campoclienteNome.setText((String) tabelaClientes.getModel().getValueAt(usar, 1));
-        campoclienteEndereco.setText((String) tabelaClientes.getModel().getValueAt(usar, 2));
-        campoclienteFone.setText((String) tabelaClientes.getModel().getValueAt(usar, 3));
-        campoclienteEmail.setText((String) tabelaClientes.getModel().getValueAt(usar, 4));
+        campoclienteCPF.setText((String) tabelaClientes.getModel().getValueAt(usar, 2));
+        campoclienteEndereco.setText((String) tabelaClientes.getModel().getValueAt(usar, 3));
+        campoclienteFone.setText((String) tabelaClientes.getModel().getValueAt(usar, 4));
+        campoclienteEmail.setText((String) tabelaClientes.getModel().getValueAt(usar, 5));
         botaoCreate.setEnabled(false);
     }
     
@@ -155,6 +168,8 @@ public class Cliente extends javax.swing.JInternalFrame {
         campoclienteEndereco = new javax.swing.JTextField();
         textoFone = new javax.swing.JLabel();
         campoclienteFone = new javax.swing.JTextField();
+        textoCPF = new javax.swing.JLabel();
+        campoclienteCPF = new javax.swing.JTextField();
         textoEmail = new javax.swing.JLabel();
         campoclienteEmail = new javax.swing.JTextField();
         botaoCreate = new javax.swing.JButton();
@@ -171,11 +186,11 @@ public class Cliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Endereço", "Fone", "Email"
+                "ID", "Nome", "CPF", "Endereço", "Fone", "Email"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -209,6 +224,16 @@ public class Cliente extends javax.swing.JInternalFrame {
         textoFone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoFone.setText("* Fone");
         textoFone.setToolTipText("Obrigatório");
+
+        textoCPF.setText("* CPF");
+        textoCPF.setToolTipText("Obrigatório");
+
+        campoclienteCPF.setToolTipText("APENAS NÚMEROS");
+        campoclienteCPF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoclienteCPFKeyReleased(evt);
+            }
+        });
 
         textoEmail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textoEmail.setText("Email");
@@ -267,20 +292,25 @@ public class Cliente extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(campoclienteEndereco)
-                            .addComponent(campoclienteFone)
                             .addComponent(campoclientePesquisa)
                             .addComponent(campoclienteNome)
-                            .addComponent(campoclienteEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campoclienteEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(campoclienteFone, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(textoCPF)
+                                .addGap(18, 18, 18)
+                                .addComponent(campoclienteCPF)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoclienteID, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Pesquisa)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botaoCreate)
-                    .addComponent(botaoUpdate)
-                    .addComponent(botaoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoCreate, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botaoUpdate, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botaoDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(76, Short.MAX_VALUE))
         );
 
@@ -309,7 +339,9 @@ public class Cliente extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(campoclienteFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textoFone))
+                            .addComponent(textoFone)
+                            .addComponent(campoclienteCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textoCPF))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textoEmail)
@@ -360,11 +392,22 @@ public class Cliente extends javax.swing.JInternalFrame {
     private void limparcampos(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limparcampos
         campoclienteID.setText(null);
         campoclienteNome.setText(null);
+        campoclienteCPF.setText(null);
         campoclienteEndereco.setText(null);
         campoclienteFone.setText(null);
         campoclienteEmail.setText(null);
         botaoCreate.setEnabled(true);
     }//GEN-LAST:event_limparcampos
+
+    private void campoclienteCPFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoclienteCPFKeyReleased
+        String cpf = campoclienteCPF.getText();
+        boolean isCPF = validadorCPF.isCPF(cpf);
+        if (isCPF) {
+            textoCPF.setForeground(Color.BLUE); 
+        } else {
+            textoCPF.setForeground(Color.red); 
+        }
+    }//GEN-LAST:event_campoclienteCPFKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -372,6 +415,7 @@ public class Cliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton botaoCreate;
     private javax.swing.JButton botaoDelete;
     private javax.swing.JButton botaoUpdate;
+    private javax.swing.JTextField campoclienteCPF;
     private javax.swing.JTextField campoclienteEmail;
     private javax.swing.JTextField campoclienteEndereco;
     private javax.swing.JTextField campoclienteFone;
@@ -380,6 +424,7 @@ public class Cliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField campoclientePesquisa;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaClientes;
+    private javax.swing.JLabel textoCPF;
     private javax.swing.JLabel textoEmail;
     private javax.swing.JLabel textoEndereco;
     private javax.swing.JLabel textoFone;

@@ -5,22 +5,29 @@
  */
 package telas;
 
+import acessoBD.ConexaoBD;
 import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import java.sql.*;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author gabri
  */
 public class Principal extends javax.swing.JFrame {
-
+    Connection conecta = null;
+    
     /**
      * Cria novo formulario da classe Principal
      */
     public Principal() {
         initComponents();
+        conecta = ConexaoBD.conector();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icones/OSSOicon.png")));
     }
 
@@ -46,6 +53,7 @@ public class Principal extends javax.swing.JFrame {
         itemUsuarios = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
         itemServicos = new javax.swing.JMenuItem();
+        itemClienteRelatorio = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
         itemSobre = new javax.swing.JMenuItem();
 
@@ -129,6 +137,14 @@ public class Principal extends javax.swing.JFrame {
 
         itemServicos.setText("Serviços");
         menuRelatorio.add(itemServicos);
+
+        itemClienteRelatorio.setText("Clientes");
+        itemClienteRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemClienteRelatorioActionPerformed(evt);
+            }
+        });
+        menuRelatorio.add(itemClienteRelatorio);
 
         barramenu.add(menuRelatorio);
 
@@ -224,6 +240,19 @@ public class Principal extends javax.swing.JFrame {
         areadetrab.add(cad_cliente);
     }//GEN-LAST:event_itemClientesActionPerformed
 
+    private void itemClienteRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemClienteRelatorioActionPerformed
+        // TODO add your handling code here:
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Imprimir relatório de Clientes?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            try {
+                JasperPrint emite = JasperFillManager.fillReport("C:/Users/manoel.neto/Documents/reports/relatorioClientes.jasper", null, conecta);
+                JasperViewer.viewReport(emite, false);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_itemClienteRelatorioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -263,6 +292,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane areadetrab;
     private javax.swing.JMenuBar barramenu;
     private javax.swing.JLabel data;
+    private javax.swing.JMenuItem itemClienteRelatorio;
     private javax.swing.JMenuItem itemClientes;
     private javax.swing.JMenuItem itemOS;
     private javax.swing.JMenuItem itemSair;

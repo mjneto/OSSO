@@ -41,10 +41,16 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="campoclienteEndereco" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campoclienteFone" alignment="0" max="32767" attributes="0"/>
                           <Component id="campoclientePesquisa" alignment="0" max="32767" attributes="0"/>
                           <Component id="campoclienteNome" alignment="0" max="32767" attributes="0"/>
                           <Component id="campoclienteEmail" alignment="0" min="-2" pref="316" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="campoclienteFone" min="-2" pref="123" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="textoCPF" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="campoclienteCPF" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -55,9 +61,9 @@
                   <Component id="jScrollPane1" alignment="1" min="-2" pref="413" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="82" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="botaoCreate" linkSize="6" min="-2" max="-2" attributes="0"/>
-                  <Component id="botaoUpdate" linkSize="6" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="botaoCreate" linkSize="6" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoUpdate" linkSize="6" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="botaoDelete" linkSize="6" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="76" max="32767" attributes="0"/>
@@ -89,6 +95,8 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="campoclienteFone" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="textoFone" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoclienteCPF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textoCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -122,9 +130,10 @@
         <Component class="javax.swing.JTable" name="tabelaClientes">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="0">
+              <Table columnCount="6" rowCount="0">
                 <Column editable="false" title="ID" type="java.lang.Object"/>
                 <Column editable="false" title="Nome" type="java.lang.Object"/>
+                <Column editable="false" title="CPF" type="java.lang.Object"/>
                 <Column editable="false" title="Endere&#xe7;o" type="java.lang.Object"/>
                 <Column editable="false" title="Fone" type="java.lang.Object"/>
                 <Column editable="false" title="Email" type="java.lang.Object"/>
@@ -174,6 +183,20 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="campoclienteFone">
+    </Component>
+    <Component class="javax.swing.JLabel" name="textoCPF">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="* CPF"/>
+        <Property name="toolTipText" type="java.lang.String" value="Obrigat&#xf3;rio"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="campoclienteCPF">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="APENAS N&#xda;MEROS"/>
+      </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoclienteCPFKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="textoEmail">
       <Properties>
