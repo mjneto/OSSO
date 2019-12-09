@@ -7,6 +7,9 @@ package telas;
 
 import java.sql.*;
 import acessoBD.ConexaoBD;
+import java.io.InputStream;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -106,10 +109,12 @@ public class Usuario extends javax.swing.JInternalFrame {
     
     public void pesquisar(){
         /*Pesquisa uma entrada no banco dado um id e seta as caixas de texto*/
-        String sql = "select * from usuarios where iduser = ?";
+        String sql = "select * from usuarios where iduser = ? or usuario like ?";
+        
         try {
             pst = conecta.prepareStatement(sql);
             pst.setString(1, campocadastroID.getText());
+            pst.setString(2, campocadastroID.getText() + "%");
             rs = pst.executeQuery();
             if (rs.next()) {
                 campocadastroNome.setText(rs.getString(2));
@@ -133,6 +138,8 @@ public class Usuario extends javax.swing.JInternalFrame {
                 campocadastroSenha.setEditable(false);
                 campocadastroPerfil.setEnabled(true);
                 campocadastroPerfil.setEditable(false);
+                textoID.setText("ID");
+                textoID.setIcon(null);
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário não encontrado");
                 campocadastroNome.setText(null);
@@ -217,10 +224,10 @@ public class Usuario extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Usuários do Sistema");
         setToolTipText(null);
-        setPreferredSize(new java.awt.Dimension(737, 443));
+        setPreferredSize(new java.awt.Dimension(780, 448));
 
         textoID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoID.setText("* ID");
+        textoID.setText("ID");
         textoID.setToolTipText("Obrigatório");
 
         campocadastroID.setToolTipText(null);
@@ -327,14 +334,16 @@ public class Usuario extends javax.swing.JInternalFrame {
                             .addComponent(textoPerfil))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(campocadastroFone)
-                                .addComponent(campocadastroLogin)
-                                .addComponent(campocadastroID)
-                                .addComponent(campocadastroNome)
-                                .addComponent(campocadastroSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(campocadastroPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                            .addComponent(campocadastroLogin)
+                            .addComponent(campocadastroNome)
+                            .addComponent(campocadastroFone)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(campocadastroPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campocadastroID, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                                    .addComponent(campocadastroSenha))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(100, 100, 100)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botaoCreate, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(botaoRead, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -385,14 +394,14 @@ public class Usuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botaoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoCancela))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {textoFone, textoID, textoLogin, textoPerfil, textoSenha, textoUser});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {botaoCreate, botaoDelete, botaoRead, botaoUpdate});
 
-        setBounds(0, 0, 727, 448);
+        setBounds(0, 0, 780, 448);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoReadActionPerformed
@@ -400,7 +409,10 @@ public class Usuario extends javax.swing.JInternalFrame {
         if (campocadastroID.isEnabled() == true) {
             pesquisar();
         } else {
+            ImageIcon path = new ImageIcon(getClass().getResource("/icones/search.png"));                    
             campocadastroID.setEnabled(true);
+            textoID.setText(null);
+            textoID.setIcon(path);
             botaoCreate.setEnabled(false);
             botaoCancela.setVisible(true);
         }
@@ -458,10 +470,15 @@ public class Usuario extends javax.swing.JInternalFrame {
 
     private void botaoCancelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelaActionPerformed
         campocadastroID.setEnabled(false);
+        campocadastroID.setEditable(true);
         campocadastroNome.setEnabled(false);
+        campocadastroNome.setEditable(true);
         campocadastroFone.setEnabled(false);
+        campocadastroFone.setEditable(true);
         campocadastroLogin.setEnabled(false);
+        campocadastroLogin.setEditable(true);
         campocadastroSenha.setEnabled(false);
+        campocadastroSenha.setEditable(true);
         campocadastroPerfil.setEnabled(false);
         campocadastroID.setText(null);
         campocadastroNome.setText(null);

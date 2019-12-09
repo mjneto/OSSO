@@ -34,13 +34,13 @@ public class Login extends javax.swing.JFrame {
                     telainicio.setVisible(true);
                     Principal.menuRelatorio.setEnabled(true);
                     Principal.itemUsuarios.setEnabled(true);
-                    Principal.textoTipouser.setText("Administrador");
-                    Principal.textoTipouser.setForeground(Color.red);
+                    Principal.textoTipoUser.setText("Administrador");
+                    Principal.textoTipoUser.setForeground(Color.red);
                     this.dispose();
                 } else {
                     Principal telainicio = new Principal();
                     telainicio.setVisible(true);
-                    Principal.textoTipouser.setVisible(false);
+                    Principal.textoTipoUser.setVisible(false);
                     this.dispose();
                 }
                 Principal.nomeUsuario.setText(rs.getString(2));

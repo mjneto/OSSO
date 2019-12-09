@@ -180,6 +180,7 @@ public class Cliente extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Cadastro de Clientes");
         setToolTipText(""); // NOI18N
+        setPreferredSize(new java.awt.Dimension(780, 448));
 
         tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -268,7 +269,7 @@ public class Cliente extends javax.swing.JInternalFrame {
             }
         });
 
-        Pesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/error.png"))); // NOI18N
+        Pesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/clear.png"))); // NOI18N
         Pesquisa.setToolTipText("Clique para limpar os campos após buscar");
         Pesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -290,28 +291,35 @@ public class Cliente extends javax.swing.JInternalFrame {
                             .addComponent(textoEndereco)
                             .addComponent(textoEmail))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(campoclienteEndereco)
-                            .addComponent(campoclientePesquisa)
-                            .addComponent(campoclienteNome)
-                            .addComponent(campoclienteEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(campoclienteFone, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(textoCPF)
                                 .addGap(18, 18, 18)
-                                .addComponent(campoclienteCPF)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoclienteID, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Pesquisa)))
+                                .addComponent(campoclienteCPF))
+                            .addComponent(campoclienteNome)
+                            .addComponent(campoclienteEndereco)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(campoclientePesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(campoclienteEmail))
+                        .addGap(31, 31, 31))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoCreate, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botaoUpdate, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botaoDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botaoUpdate, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(botaoDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Pesquisa)
+                            .addComponent(campoclienteID, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botaoCreate)))
+                .addGap(68, 68, 68))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoEmail, textoEndereco, textoFone, textoUser});
@@ -354,14 +362,14 @@ public class Cliente extends javax.swing.JInternalFrame {
                         .addComponent(botaoUpdate)
                         .addGap(18, 18, 18)
                         .addComponent(botaoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addGap(59, 59, 59))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {campoclienteEndereco, campoclienteFone, campoclienteNome, campoclientePesquisa, textoEmail, textoEndereco, textoFone, textoUser});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {campoclienteFone, campoclienteNome, campoclientePesquisa, textoEmail, textoEndereco, textoFone, textoUser});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {botaoCreate, botaoDelete, botaoUpdate});
 
-        setBounds(0, 0, 727, 448);
+        setBounds(0, 0, 780, 448);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCreateActionPerformed

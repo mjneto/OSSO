@@ -7,6 +7,8 @@ package telas;
 
 import acessoBD.ConexaoBD;
 import java.awt.Toolkit;
+import java.beans.PropertyVetoException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -43,16 +45,17 @@ public class Principal extends javax.swing.JFrame {
         areadetrab = new javax.swing.JDesktopPane();
         nomeUsuario = new javax.swing.JLabel();
         data = new javax.swing.JLabel();
-        textoTipouser = new javax.swing.JLabel();
+        textoTipoUser = new javax.swing.JLabel();
         barramenu = new javax.swing.JMenuBar();
         menuOpcoes = new javax.swing.JMenu();
+        itemTrocarUser = new javax.swing.JMenuItem();
         itemSair = new javax.swing.JMenuItem();
         menuCadastro = new javax.swing.JMenu();
         itemClientes = new javax.swing.JMenuItem();
         itemOS = new javax.swing.JMenuItem();
         itemUsuarios = new javax.swing.JMenuItem();
         menuRelatorio = new javax.swing.JMenu();
-        itemServicos = new javax.swing.JMenuItem();
+        itemServicosRelatorio = new javax.swing.JMenuItem();
         itemClienteRelatorio = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
         itemSobre = new javax.swing.JMenuItem();
@@ -68,13 +71,13 @@ public class Principal extends javax.swing.JFrame {
 
         areadetrab.setBackground(new java.awt.Color(255, 255, 255));
         areadetrab.setName(""); // NOI18N
-        areadetrab.setPreferredSize(new java.awt.Dimension(737, 443));
+        areadetrab.setPreferredSize(new java.awt.Dimension(780, 448));
 
         javax.swing.GroupLayout areadetrabLayout = new javax.swing.GroupLayout(areadetrab);
         areadetrab.setLayout(areadetrabLayout);
         areadetrabLayout.setHorizontalGroup(
             areadetrabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 727, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         areadetrabLayout.setVerticalGroup(
             areadetrabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,10 +91,18 @@ public class Principal extends javax.swing.JFrame {
         data.setText("data");
         data.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        textoTipouser.setText("tipo-de-usuario");
-        textoTipouser.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        textoTipoUser.setText("tipo-de-usuario");
+        textoTipoUser.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         menuOpcoes.setText("Opções");
+
+        itemTrocarUser.setText("Trocar Usuário");
+        itemTrocarUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemTrocarUserActionPerformed(evt);
+            }
+        });
+        menuOpcoes.add(itemTrocarUser);
 
         itemSair.setText("Sair");
         itemSair.addActionListener(new java.awt.event.ActionListener() {
@@ -135,8 +146,13 @@ public class Principal extends javax.swing.JFrame {
         menuRelatorio.setText("Relatórios");
         menuRelatorio.setEnabled(false);
 
-        itemServicos.setText("Serviços");
-        menuRelatorio.add(itemServicos);
+        itemServicosRelatorio.setText("Serviços");
+        itemServicosRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemServicosRelatorioActionPerformed(evt);
+            }
+        });
+        menuRelatorio.add(itemServicosRelatorio);
 
         itemClienteRelatorio.setText("Clientes");
         itemClienteRelatorio.addActionListener(new java.awt.event.ActionListener() {
@@ -166,35 +182,33 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(areadetrab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nomeUsuario)
                         .addGap(18, 18, 18)
-                        .addComponent(textoTipouser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(data))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(textoTipoUser)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 608, Short.MAX_VALUE)
+                        .addComponent(data)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(areadetrab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textoTipouser, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nomeUsuario)
-                    .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textoTipoUser)
+                    .addComponent(data))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {nomeUsuario, textoTipouser});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {data, nomeUsuario, textoTipoUser});
 
-        setSize(new java.awt.Dimension(755, 536));
+        setSize(new java.awt.Dimension(816, 539));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
@@ -203,6 +217,11 @@ public class Principal extends javax.swing.JFrame {
         OS cad_os = new OS();
         cad_os.setVisible(true);
         areadetrab.add(cad_os);
+        try {
+            cad_os.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_itemOSActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -231,6 +250,11 @@ public class Principal extends javax.swing.JFrame {
         Usuario cad_usuario = new Usuario();
         cad_usuario.setVisible(true);
         areadetrab.add(cad_usuario);
+        try {
+            cad_usuario.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_itemUsuariosActionPerformed
 
     private void itemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemClientesActionPerformed
@@ -238,20 +262,50 @@ public class Principal extends javax.swing.JFrame {
         Cliente cad_cliente = new Cliente();
         cad_cliente.setVisible(true);
         areadetrab.add(cad_cliente);
+        try {
+            cad_cliente.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_itemClientesActionPerformed
 
     private void itemClienteRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemClienteRelatorioActionPerformed
-        // TODO add your handling code here:
-        int confirmacao = JOptionPane.showConfirmDialog(null, "Imprimir relatório de Clientes?", "Atenção", JOptionPane.YES_NO_OPTION);
+        /*Botao de relatorio que puxa informações do banco de dados sobre clientes e exporta*/
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Emitir relatório de Clientes?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirmacao == JOptionPane.YES_OPTION) {
             try {
-                JasperPrint emite = JasperFillManager.fillReport("C:/Users/manoel.neto/Documents/reports/relatorioClientes.jasper", null, conecta);
+                InputStream path = getClass().getResourceAsStream("/relatorios/ireport/relatorioClientes.jasper");
+                JasperPrint emite = JasperFillManager.fillReport(path, null, conecta);
                 JasperViewer.viewReport(emite, false);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
         }
     }//GEN-LAST:event_itemClienteRelatorioActionPerformed
+
+    private void itemServicosRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemServicosRelatorioActionPerformed
+        /*Botao de relatorio que puxa informações do banco de dados sobre OS e clientes e exporta*/
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Emitir relatório de Serviços?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            try {
+                InputStream path = getClass().getResourceAsStream("/relatorios/ireport/relatorioServicos.jasper");
+                JasperPrint emite = JasperFillManager.fillReport(path, null, conecta);
+                JasperViewer.viewReport(emite, false);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_itemServicosRelatorioActionPerformed
+
+    private void itemTrocarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTrocarUserActionPerformed
+        /*Troca o usuário chamando a tela de login*/
+        int sair = JOptionPane.showConfirmDialog(null, "Deseja trocar de usuário?", "Logoff", JOptionPane.YES_NO_OPTION);
+        if (sair == JOptionPane.YES_OPTION) {
+            this.dispose();
+            Login telaLogin = new Login();
+            telaLogin.setVisible(true);
+        }
+    }//GEN-LAST:event_itemTrocarUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,14 +350,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemClientes;
     private javax.swing.JMenuItem itemOS;
     private javax.swing.JMenuItem itemSair;
-    private javax.swing.JMenuItem itemServicos;
+    private javax.swing.JMenuItem itemServicosRelatorio;
     private javax.swing.JMenuItem itemSobre;
+    private javax.swing.JMenuItem itemTrocarUser;
     public static javax.swing.JMenuItem itemUsuarios;
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenu menuOpcoes;
     public static javax.swing.JMenu menuRelatorio;
     public static javax.swing.JLabel nomeUsuario;
-    public static javax.swing.JLabel textoTipouser;
+    public static javax.swing.JLabel textoTipoUser;
     // End of variables declaration//GEN-END:variables
 }
