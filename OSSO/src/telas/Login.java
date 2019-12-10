@@ -23,6 +23,7 @@ public class Login extends javax.swing.JFrame {
         try {
             pst = conecta.prepareStatement(sql);
             pst.setString(1, campouser.getText());
+            //Comparar senha do bd com local com MD5
             pst.setString(2, campopw.getText());
             rs = pst.executeQuery();
             

@@ -57,6 +57,7 @@ public class OS extends javax.swing.JInternalFrame {
     
     private void cadastrar(){
         /*Cadastra a OS*/
+        //Cadastrar UN.
         String sql = "insert into os(orcamento, situacao, responsavel, servico, valor, id_cliente) values (?, ?, ?, ?, ?, ?)";
         try {
             pst = conecta.prepareStatement(sql);
@@ -91,6 +92,7 @@ public class OS extends javax.swing.JInternalFrame {
     }
     private void pesquisar(){
         /*Abre uma caixa de input para pesquisar no banco uma OS*/
+        //Pesquisar UN.
         String id_os = JOptionPane.showInputDialog("Numero da OS");
         String sql  = "select * from os where id_os = " + id_os;
         
@@ -122,6 +124,7 @@ public class OS extends javax.swing.JInternalFrame {
     
     private void alterar(){
         /*Altera alguns campos da OS*/
+        //alterar UN.
         String sql = "update os set orcamento = ?, situacao = ?, responsavel = ?, servico = ?, valor = ? where id_os = ?";
         try {
             pst = conecta.prepareStatement(sql);
@@ -239,6 +242,8 @@ public class OS extends javax.swing.JInternalFrame {
         botaoDelete = new javax.swing.JButton();
         botaoPrint = new javax.swing.JButton();
         clearOS = new javax.swing.JLabel();
+        campoOSUn = new javax.swing.JComboBox<>();
+        textoOSUn = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Ordem de Serviço");
@@ -396,6 +401,10 @@ public class OS extends javax.swing.JInternalFrame {
             }
         });
 
+        campoOSUn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "M2", "M3", "Pt", "CJ" }));
+
+        textoOSUn.setText("Un.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -414,10 +423,14 @@ public class OS extends javax.swing.JInternalFrame {
                             .addComponent(campoOSResp, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoOSServico, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoOSValor, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(botaoPrint)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(clearOS)))
+                                .addComponent(textoOSUn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(campoOSUn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(clearOS)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -474,9 +487,11 @@ public class OS extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(campoOSServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textoOSServico))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(campoOSServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textoOSServico))
+                            .addComponent(clearOS))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(campoOSResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -486,9 +501,10 @@ public class OS extends javax.swing.JInternalFrame {
                             .addComponent(campoOSValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textoOSValor))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(clearOS)
-                            .addComponent(botaoPrint)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botaoPrint)
+                            .addComponent(campoOSUn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textoOSUn)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botaoCreate)
@@ -599,6 +615,7 @@ public class OS extends javax.swing.JInternalFrame {
     private javax.swing.JTextField campoOSResp;
     private javax.swing.JTextField campoOSServico;
     private javax.swing.JComboBox<String> campoOSSituacao;
+    private javax.swing.JComboBox<String> campoOSUn;
     private javax.swing.JTextField campoOSValor;
     private javax.swing.JCheckBox checkOSOrcamento;
     private javax.swing.JLabel clearOS;
@@ -611,6 +628,7 @@ public class OS extends javax.swing.JInternalFrame {
     private javax.swing.JLabel textoOSResp;
     private javax.swing.JLabel textoOSServico;
     private javax.swing.JLabel textoOSSituacao;
+    private javax.swing.JLabel textoOSUn;
     private javax.swing.JLabel textoOSValor;
     private javax.swing.JLabel textobusca;
     // End of variables declaration//GEN-END:variables

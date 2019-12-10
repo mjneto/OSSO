@@ -11,6 +11,7 @@ import java.io.InputStream;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import suporte.MD5;
 
 /**
  *
@@ -39,7 +40,7 @@ public class Usuario extends javax.swing.JInternalFrame {
             pst.setString(1, campocadastroNome.getText());
             pst.setString(2, campocadastroFone.getText());
             pst.setString(3, campocadastroLogin.getText());
-            pst.setString(4, campocadastroSenha.getText());
+            pst.setString(4, MD5.gerarMD5(campocadastroSenha.getText()));
             if (campocadastroPerfil.getSelectedItem() == (String) "Administrador") {
                 pst.setBoolean(5, true);
             } else {
@@ -160,7 +161,7 @@ public class Usuario extends javax.swing.JInternalFrame {
             pst.setString(1, campocadastroNome.getText());
             pst.setString(2, campocadastroFone.getText());
             pst.setString(3, campocadastroLogin.getText());
-            pst.setString(4, campocadastroSenha.getText());
+            pst.setString(4, MD5.gerarMD5(campocadastroSenha.getText()));
             if (campocadastroPerfil.getSelectedItem() == (String) "Administrador") {
                 pst.setBoolean(5, true);
             } else {
