@@ -9,7 +9,9 @@ import java.sql.*;
 import acessoBD.ConexaoBD;
 import java.io.InputStream;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -34,9 +36,28 @@ public class OS extends javax.swing.JInternalFrame {
     public OS() {
         initComponents();
         conecta = ConexaoBD.conector();
+        preencherComboBox();
     }
     
-    private void preenchercampos(){
+    private void preencherComboBox() {
+        List<String> list = new ArrayList<>();
+        String sql = "select desc_servico from servicos";
+        try {
+            pst = conecta.prepareStatement(sql);
+            rs = pst.executeQuery();
+            campoOSServico.removeAllItems();
+            while (rs.next()) {
+                list.add(rs.getString("desc_servico"));
+            }
+            for (String desc : list) {
+                campoOSServico.addItem(desc);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void preencherCamposTabela(){
         /*Preencher os campos da tabela a partir do campo de pesquisa*/
         String sql = "select id_cliente as ID, nome_cliente as Nome, fone_cliente as Fone from clientes where nome_cliente like ?";
         try {
@@ -44,12 +65,12 @@ public class OS extends javax.swing.JInternalFrame {
             pst.setString(1, campoOSNomecliente.getText() + "%");
             rs = pst.executeQuery();
             tabelaOSCliente.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
     
-    private void usar_campos() {
+    private void usarDadosCampos() {
         /*Colocar a ID do cliente no campo a partir de uma seleção da tabela*/
         int usar = tabelaOSCliente.getSelectedRow();
         campoIDCliente.setText(tabelaOSCliente.getModel().getValueAt(usar, 0).toString());
@@ -57,8 +78,7 @@ public class OS extends javax.swing.JInternalFrame {
     
     private void cadastrar(){
         /*Cadastra a OS*/
-        //Cadastrar UN.
-        String sql = "insert into os(orcamento, situacao, responsavel, servico, valor, id_cliente) values (?, ?, ?, ?, ?, ?)";
+        String sql = "insert into os(orcamento, situacao, responsavel, cod_servico, unidade_total, id_cliente) values (?, ?, ?, (select cod from servicos where desc_servico = ?), ?, ?)";
         try {
             pst = conecta.prepareStatement(sql);
             if (checkOSOrcamento.isSelected()) {
@@ -67,22 +87,22 @@ public class OS extends javax.swing.JInternalFrame {
                 pst.setBoolean(1, false);
             }
             pst.setString(2, (String) campoOSSituacao.getSelectedItem());
-            pst.setString(3, campoOSServico.getText());
             pst.setString(3, campoOSResp.getText());
-            pst.setString(4, campoOSServico.getText());
-            pst.setString(5, campoOSValor.getText().replace(",", "."));
+            pst.setString(4, (String) campoOSServico.getSelectedItem());
+            pst.setString(5, campoOSnumUN.getText());
             pst.setString(6, campoIDCliente.getText());
             /*Verificação de ID vinculada a OS e o serviço*/
-            if (campoIDCliente.getText().isEmpty() || campoOSServico.getText().isEmpty()){
+            if (campoIDCliente.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios");
             } else {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "OS Cadastrada");
                     campoIDCliente.setText(null);
-                    campoOSServico.setText(null);
+                    campoOSSituacao.setSelectedIndex(0);
+                    campoOSServico.setSelectedIndex(0);
                     campoOSResp.setText(null);
-                    campoOSValor.setText(null);
+                    campoOSValor.setText("48.17");
                     checkOSOrcamento.setSelected(false);
                 }
             }
@@ -92,9 +112,8 @@ public class OS extends javax.swing.JInternalFrame {
     }
     private void pesquisar(){
         /*Abre uma caixa de input para pesquisar no banco uma OS*/
-        //Pesquisar UN.
         String id_os = JOptionPane.showInputDialog("Numero da OS");
-        String sql  = "select * from os where id_os = " + id_os;
+        String sql  = "select os.id_os,data_os,orcamento,situacao,responsavel,unidade_total,id_cliente,servicos.desc_servico,unidade,valor from os inner join servicos on os.cod_servico = servicos.cod where id_os = " + id_os;
         
         try {
             pst = conecta.prepareStatement(sql);
@@ -105,9 +124,11 @@ public class OS extends javax.swing.JInternalFrame {
                 checkOSOrcamento.setSelected(rs.getBoolean(3));
                 campoOSSituacao.setSelectedItem(rs.getString(4));
                 campoOSResp.setText(rs.getString(5));
-                campoOSServico.setText(rs.getString(6));
-                campoOSValor.setText(rs.getString(7));
-                campoIDCliente.setText(rs.getString(8));
+                campoOSnumUN.setText(rs.getString(6));
+                campoIDCliente.setText(rs.getString(7));
+                campoOSServico.setSelectedItem(rs.getString(8));
+                campoOSUN.setText(rs.getString(1));
+                campoOSValor.setText(Float.toString(Float.parseFloat(campoOSnumUN.getText()) * Float.parseFloat(rs.getString(2))));
                 botaoCreate.setEnabled(false);
                 campoOSNomecliente.setEnabled(false);
                 checkOSOrcamento.setEnabled(false);
@@ -124,8 +145,7 @@ public class OS extends javax.swing.JInternalFrame {
     
     private void alterar(){
         /*Altera alguns campos da OS*/
-        //alterar UN.
-        String sql = "update os set orcamento = ?, situacao = ?, responsavel = ?, servico = ?, valor = ? where id_os = ?";
+        String sql = "update os set orcamento = ?, situacao = ?, responsavel = ?, cod_servico = (select cod from servicos where desc_servico = ?), unidade_total = ? where id_os = ?";
         try {
             pst = conecta.prepareStatement(sql);
             if (checkOSOrcamento.isSelected()) {
@@ -134,22 +154,21 @@ public class OS extends javax.swing.JInternalFrame {
                 pst.setBoolean(1, false);
             }
             pst.setString(2, (String) campoOSSituacao.getSelectedItem());
-            pst.setString(3, campoOSServico.getText());
             pst.setString(3, campoOSResp.getText());
-            pst.setString(4, campoOSServico.getText());
-            pst.setString(5, campoOSValor.getText().replace(",", "."));
+            pst.setString(4, (String) campoOSServico.getSelectedItem());
+            pst.setString(5, campoOSnumUN.getText());
             pst.setString(6, campoOSID.getText());
             /*Verificação de ID vinculada a OS e o serviço*/
-            if (campoIDCliente.getText().isEmpty() || campoOSServico.getText().isEmpty()){
+            if (campoIDCliente.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios");
             } else {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "OS Alterada");
                     campoIDCliente.setText(null);
-                    campoOSServico.setText(null);
+                    campoOSServico.setSelectedIndex(0);
                     campoOSResp.setText(null);
-                    campoOSValor.setText(null);
+                    campoOSValor.setText("48.17");
                     checkOSOrcamento.setSelected(false);
                     campoOSID.setText(null);
                     campoOSData.setText(null);
@@ -174,9 +193,9 @@ public class OS extends javax.swing.JInternalFrame {
                 if (deletado > 0) {
                     JOptionPane.showMessageDialog(null, "OS Apagada");
                     campoIDCliente.setText(null);
-                    campoOSServico.setText(null);
+                    campoOSServico.setSelectedIndex(0);
                     campoOSResp.setText(null);
-                    campoOSValor.setText("0");
+                    campoOSValor.setText("48.17");
                     checkOSOrcamento.setSelected(false);
                     campoOSID.setText(null);
                     campoOSData.setText(null);
@@ -231,7 +250,6 @@ public class OS extends javax.swing.JInternalFrame {
         scrollpaneOS = new javax.swing.JScrollPane();
         tabelaOSCliente = new javax.swing.JTable();
         textoOSServico = new javax.swing.JLabel();
-        campoOSServico = new javax.swing.JTextField();
         textoOSResp = new javax.swing.JLabel();
         campoOSResp = new javax.swing.JTextField();
         textoOSValor = new javax.swing.JLabel();
@@ -242,8 +260,12 @@ public class OS extends javax.swing.JInternalFrame {
         botaoDelete = new javax.swing.JButton();
         botaoPrint = new javax.swing.JButton();
         clearOS = new javax.swing.JLabel();
-        campoOSUn = new javax.swing.JComboBox<>();
         textoOSUn = new javax.swing.JLabel();
+        campoOSServico = new javax.swing.JComboBox<>();
+        campoOSUN = new javax.swing.JTextField();
+        campoOSnumUN = new javax.swing.JTextField();
+        botaoMais = new javax.swing.JButton();
+        botaoMenos = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Ordem de Serviço");
@@ -340,13 +362,12 @@ public class OS extends javax.swing.JInternalFrame {
 
         textoOSServico.setText("* Serviços");
 
-        campoOSServico.setToolTipText("Obrigatório");
-
         textoOSResp.setText("Responsável");
 
         textoOSValor.setText("Valor Total");
 
         campoOSValor.setText("0");
+        campoOSValor.setEnabled(false);
 
         botaoCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/create.png"))); // NOI18N
         botaoCreate.setToolTipText("Cadastrar OS");
@@ -401,9 +422,33 @@ public class OS extends javax.swing.JInternalFrame {
             }
         });
 
-        campoOSUn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "M2", "M3", "Pt", "CJ" }));
-
         textoOSUn.setText("Un.");
+
+        campoOSServico.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                campoOSServicoItemStateChanged(evt);
+            }
+        });
+
+        campoOSUN.setEnabled(false);
+
+        campoOSnumUN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        campoOSnumUN.setText("1");
+        campoOSnumUN.setEnabled(false);
+
+        botaoMais.setText("+");
+        botaoMais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoMaisActionPerformed(evt);
+            }
+        });
+
+        botaoMenos.setText("-");
+        botaoMenos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoMenosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -419,18 +464,26 @@ public class OS extends javax.swing.JInternalFrame {
                                 .addComponent(textoOSResp))
                             .addComponent(textoOSValor, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(campoOSResp, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoOSServico, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoOSValor, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(botaoPrint)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textoOSUn)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(campoOSResp, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                                    .addComponent(campoOSServico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(campoOSValor)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(textoOSUn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(botaoMenos)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(campoOSnumUN, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(campoOSUN, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(botaoMais)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(campoOSUn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(clearOS)
+                                .addComponent(clearOS))
+                            .addComponent(botaoPrint))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -456,7 +509,7 @@ public class OS extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(campoOSSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(checkOSOrcamento))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                         .addComponent(painelOSCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
         );
@@ -464,6 +517,8 @@ public class OS extends javax.swing.JInternalFrame {
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {botaoCreate, botaoDelete, botaoRead, botaoUpdate});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textoOSResp, textoOSServico, textoOSSituacao, textoOSValor});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {campoOSUN, campoOSnumUN});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -488,9 +543,17 @@ public class OS extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botaoCreate)
+                            .addComponent(botaoRead))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botaoDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoUpdate, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(campoOSServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textoOSServico))
+                                .addComponent(textoOSServico)
+                                .addComponent(campoOSServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(clearOS))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -499,24 +562,20 @@ public class OS extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(campoOSValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textoOSValor))
+                            .addComponent(textoOSValor)
+                            .addComponent(textoOSUn)
+                            .addComponent(campoOSnumUN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoMenos)
+                            .addComponent(botaoMais)
+                            .addComponent(campoOSUN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botaoPrint)
-                            .addComponent(campoOSUn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textoOSUn)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botaoCreate)
-                            .addComponent(botaoRead))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botaoDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botaoUpdate, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                        .addComponent(botaoPrint)))
+                .addGap(54, 54, 54))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {botaoCreate, botaoDelete, botaoRead, botaoUpdate});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {campoOSUN, campoOSnumUN});
 
         setBounds(0, 0, 780, 448);
     }// </editor-fold>//GEN-END:initComponents
@@ -524,7 +583,7 @@ public class OS extends javax.swing.JInternalFrame {
     private void botaoCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCreateActionPerformed
         /*Cria uma OS no banco*/
         if (campoOSID.getText().equals("")) {
-            String sql = "select auto_increment from information_schema.tables where table_schema = 'dbosso' and table_name = 'usuarios'";
+            String sql = "select auto_increment from information_schema.tables where table_schema = 'dbosso' and table_name = 'os'";
             try {
                 pst = conecta.prepareStatement(sql);
                 rs = pst.executeQuery();
@@ -561,12 +620,12 @@ public class OS extends javax.swing.JInternalFrame {
 
     private void campoOSNomeclienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoOSNomeclienteKeyReleased
         /*Enquanto digita na caixa de pesquisa, preenche a tabela*/
-        preenchercampos();
+        preencherCamposTabela();
     }//GEN-LAST:event_campoOSNomeclienteKeyReleased
 
     private void tabelaOSClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaOSClienteMouseClicked
         /*Ao clicar em uma linha da tabela, extrai a ID para vincular a OS*/
-        usar_campos();
+        usarDadosCampos();
     }//GEN-LAST:event_tabelaOSClienteMouseClicked
 
     private void checkOSOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOSOrcamentoActionPerformed
@@ -593,18 +652,53 @@ public class OS extends javax.swing.JInternalFrame {
         campoOSNomecliente.setText(null);
         campoOSNomecliente.setEnabled(true);
         campoIDCliente.setText(null);
-        campoOSServico.setText(null);
+        campoOSServico.setSelectedIndex(0);
         campoOSResp.setText(null);
-        campoOSSituacao.setToolTipText(null);
-        campoOSValor.setText("0");
+        campoOSSituacao.setSelectedIndex(0);
+        campoOSValor.setText("48.17");
+        campoOSnumUN.setText("1");
         botaoCreate.setEnabled(true);
         botaoPrint.setEnabled(false);
     }//GEN-LAST:event_clearOSMouseClicked
 
+    private void campoOSServicoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_campoOSServicoItemStateChanged
+        String sql = "select unidade, valor from servicos where desc_servico = ?";
+        try {
+            pst = conecta.prepareStatement(sql);
+            pst.setString(1, campoOSServico.getSelectedItem().toString());
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                campoOSUN.setText(rs.getString(1));
+                campoOSValor.setText(rs.getString(2));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_campoOSServicoItemStateChanged
+
+    private void botaoMaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoMaisActionPerformed
+        int cont = Integer.parseInt(campoOSnumUN.getText()) + 1;
+        campoOSnumUN.setText(Integer.toString(cont));
+        float valorTotal = Float.parseFloat(campoOSValor.getText());
+        valorTotal += valorTotal;
+        campoOSValor.setText(Float.toString(valorTotal));
+    }//GEN-LAST:event_botaoMaisActionPerformed
+
+    private void botaoMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoMenosActionPerformed
+        if (!"1".equals(campoOSnumUN.getText())) {
+            int cont = Integer.parseInt(campoOSnumUN.getText()) - 1;
+            campoOSnumUN.setText(Integer.toString(cont));
+            float valorTotal = Float.parseFloat(campoOSValor.getText());
+            valorTotal = valorTotal/2;
+            campoOSValor.setText(Float.toString(valorTotal));
+        }
+    }//GEN-LAST:event_botaoMenosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCreate;
     private javax.swing.JButton botaoDelete;
+    private javax.swing.JButton botaoMais;
+    private javax.swing.JButton botaoMenos;
     private javax.swing.JButton botaoPrint;
     private javax.swing.JButton botaoRead;
     private javax.swing.JButton botaoUpdate;
@@ -613,10 +707,11 @@ public class OS extends javax.swing.JInternalFrame {
     private javax.swing.JTextField campoOSID;
     private javax.swing.JTextField campoOSNomecliente;
     private javax.swing.JTextField campoOSResp;
-    private javax.swing.JTextField campoOSServico;
+    private javax.swing.JComboBox<String> campoOSServico;
     private javax.swing.JComboBox<String> campoOSSituacao;
-    private javax.swing.JComboBox<String> campoOSUn;
+    private javax.swing.JTextField campoOSUN;
     private javax.swing.JTextField campoOSValor;
+    private javax.swing.JTextField campoOSnumUN;
     private javax.swing.JCheckBox checkOSOrcamento;
     private javax.swing.JLabel clearOS;
     private javax.swing.JPanel painelOSCliente;

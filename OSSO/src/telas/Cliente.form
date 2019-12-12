@@ -33,48 +33,41 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="textoFone" linkSize="4" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="textoUser" linkSize="4" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="textoEndereco" linkSize="4" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="textoEmail" linkSize="4" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="campoclienteFone" min="-2" pref="123" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="textoCPF" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="campoclienteCPF" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="campoclienteNome" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campoclienteEndereco" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="campoclientePesquisa" min="-2" pref="380" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="campoclienteEmail" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jScrollPane1" alignment="1" min="-2" pref="413" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="textoFone" linkSize="4" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="textoUser" linkSize="4" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="textoEndereco" linkSize="4" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="textoEmail" linkSize="4" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="textoBuscar" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="campoclientePesquisa" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="1" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="campoclienteFone" min="-2" pref="123" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="textoCPF" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="campoclienteCPF" pref="194" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="campoclienteNome" alignment="0" max="32767" attributes="0"/>
+                  <Component id="campoclienteEndereco" alignment="0" max="32767" attributes="0"/>
+                  <Component id="campoclienteEmail" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="72" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="85" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="botaoUpdate" linkSize="6" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="botaoDelete" linkSize="6" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Pesquisa" min="-2" max="-2" attributes="0"/>
                           <Component id="campoclienteID" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="textoLimpar" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="botaoCreate" linkSize="6" min="-2" max="-2" attributes="0"/>
@@ -89,16 +82,18 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="campoclientePesquisa" linkSize="3" max="32767" attributes="0"/>
-                          <Component id="Pesquisa" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="botaoCreate" linkSize="5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="botaoUpdate" linkSize="5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="botaoDelete" linkSize="5" min="-2" pref="70" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="campoclienteNome" linkSize="3" alignment="3" max="-2" attributes="0"/>
                           <Component id="textoUser" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoclienteID" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoclienteID" linkSize="3" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -117,18 +112,19 @@
                           <Component id="textoEmail" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="campoclienteEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="134" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="botaoCreate" linkSize="5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="botaoUpdate" linkSize="5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="botaoDelete" linkSize="5" min="-2" pref="70" max="-2" attributes="0"/>
-                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="textoBuscar" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoclientePesquisa" linkSize="3" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="textoLimpar" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="62" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -161,6 +157,9 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="campoclientePesquisa">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Os clientes ser&#xe3;o mostrados na tabela"/>
+      </Properties>
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoclientePesquisaKeyReleased"/>
       </Events>
@@ -184,7 +183,7 @@
     <Component class="javax.swing.JLabel" name="textoEndereco">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
+        <Property name="text" type="java.lang.String" value="* Endere&#xe7;o"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="campoclienteEndereco">
@@ -192,7 +191,7 @@
     <Component class="javax.swing.JLabel" name="textoFone">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="* Fone"/>
+        <Property name="text" type="java.lang.String" value="Fone"/>
         <Property name="toolTipText" type="java.lang.String" value="Obrigat&#xf3;rio"/>
       </Properties>
     </Component>
@@ -271,7 +270,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoDeleteActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="Pesquisa">
+    <Component class="javax.swing.JLabel" name="textoLimpar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/icones/clear.png"/>
@@ -281,6 +280,11 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="limparcampos"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="textoBuscar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Buscar:"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

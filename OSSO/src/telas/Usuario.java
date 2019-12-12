@@ -7,8 +7,6 @@ package telas;
 
 import java.sql.*;
 import acessoBD.ConexaoBD;
-import java.io.InputStream;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import suporte.MD5;
@@ -33,14 +31,14 @@ public class Usuario extends javax.swing.JInternalFrame {
 
     private void alterar() {
         /*Altera uma entrada no banco dado um id*/
-        String sql = "update usuarios set usuario = ?, fone = ?, login = ?, senha = ?, is_admin = ? where iduser = ?";
+        String sql = "update usuarios set nome_user = ?, fone_user = ?, login_user = ?, senha_user = ?, is_admin = ? where id_user = ?";
         
         try {
             pst = conecta.prepareStatement(sql);
             pst.setString(1, campocadastroNome.getText());
             pst.setString(2, campocadastroFone.getText());
             pst.setString(3, campocadastroLogin.getText());
-            pst.setString(4, MD5.gerarMD5(campocadastroSenha.getText()));
+            pst.setString(4, MD5.gerarMD5(campocadastroSenha.getText())); //Gerando senha MD5
             if (campocadastroPerfil.getSelectedItem() == (String) "Administrador") {
                 pst.setBoolean(5, true);
             } else {
@@ -79,7 +77,7 @@ public class Usuario extends javax.swing.JInternalFrame {
         /*Remove uma entrada no banco dado um id*/
         int confirma = JOptionPane.showConfirmDialog(null, "Deseja remover este usuário?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirma == JOptionPane.YES_OPTION) {
-            String sql = "delete from usuarios where iduser = ?";
+            String sql = "delete from usuarios where id_user = ?";
             try {
                 pst = conecta.prepareStatement(sql);
                 pst.setString(1, campocadastroID.getText());
@@ -110,7 +108,7 @@ public class Usuario extends javax.swing.JInternalFrame {
     
     public void pesquisar(){
         /*Pesquisa uma entrada no banco dado um id e seta as caixas de texto*/
-        String sql = "select * from usuarios where iduser = ? or usuario like ?";
+        String sql = "select * from usuarios where id_user = ? or nome_user like ?";
         
         try {
             pst = conecta.prepareStatement(sql);
@@ -155,13 +153,13 @@ public class Usuario extends javax.swing.JInternalFrame {
     
     private void cadastrar(){
         /*Função de insert sql, lendo dos campos*/
-        String sql = "insert into usuarios(usuario, fone, login, senha, is_admin) values(?, ?, ?, ?, ?)";
+        String sql = "insert into usuarios(nome_user, fone_user, login_user, senha_user, is_admin) values(?, ?, ?, ?, ?)";
         try {
             pst = conecta.prepareStatement(sql);
             pst.setString(1, campocadastroNome.getText());
             pst.setString(2, campocadastroFone.getText());
             pst.setString(3, campocadastroLogin.getText());
-            pst.setString(4, MD5.gerarMD5(campocadastroSenha.getText()));
+            pst.setString(4, MD5.gerarMD5(campocadastroSenha.getText())); //Gerando senha MD5
             if (campocadastroPerfil.getSelectedItem() == (String) "Administrador") {
                 pst.setBoolean(5, true);
             } else {
@@ -334,17 +332,14 @@ public class Usuario extends javax.swing.JInternalFrame {
                             .addComponent(textoSenha)
                             .addComponent(textoPerfil))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campocadastroLogin)
-                            .addComponent(campocadastroNome)
-                            .addComponent(campocadastroFone)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(campocadastroPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campocadastroID, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                                    .addComponent(campocadastroSenha))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(100, 100, 100)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(campocadastroLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                            .addComponent(campocadastroFone, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campocadastroNome, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campocadastroPerfil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campocadastroID, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campocadastroSenha))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botaoCreate, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(botaoRead, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -393,9 +388,9 @@ public class Usuario extends javax.swing.JInternalFrame {
                             .addComponent(textoPerfil))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoCancela))
-                .addContainerGap(49, Short.MAX_VALUE))
+                    .addComponent(botaoCancela)
+                    .addComponent(botaoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {textoFone, textoID, textoLogin, textoPerfil, textoSenha, textoUser});
@@ -421,7 +416,7 @@ public class Usuario extends javax.swing.JInternalFrame {
 
     private void botaoCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCreateActionPerformed
         /*Cria um usuario no banco*/
-         if (campocadastroNome.isEnabled() == true) {
+        if (campocadastroNome.isEnabled() == true) {
             cadastrar();
         } else {
             String sql = "select auto_increment from information_schema.tables where table_schema = 'dbosso' and table_name = 'usuarios'";
@@ -493,7 +488,7 @@ public class Usuario extends javax.swing.JInternalFrame {
         botaoCancela.setVisible(false);
     }//GEN-LAST:event_botaoCancelaActionPerformed
 
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCancela;
     private javax.swing.JButton botaoCreate;

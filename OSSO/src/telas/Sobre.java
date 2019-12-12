@@ -32,7 +32,7 @@ public class Sobre extends javax.swing.JFrame {
         textoEquipe = new javax.swing.JLabel();
         textoVer = new javax.swing.JLabel();
         textoInferiorEsq = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        iconeOSSO = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("sobre");
@@ -50,8 +50,8 @@ public class Sobre extends javax.swing.JFrame {
 
         textoInferiorEsq.setText("Baseado em código GNU");
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/iconOSSO.png"))); // NOI18N
+        iconeOSSO.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconeOSSO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/iconOSSO.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,7 +63,7 @@ public class Sobre extends javax.swing.JFrame {
                         .addGap(162, 162, 162)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textoSubtitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(iconeOSSO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(130, 130, 130))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -86,7 +86,7 @@ public class Sobre extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(textoSubtitulo)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(iconeOSSO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoEquipe)
@@ -138,7 +138,7 @@ public class Sobre extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel iconeOSSO;
     private javax.swing.JLabel textoEquipe;
     private javax.swing.JLabel textoInferiorEsq;
     private javax.swing.JLabel textoSubtitulo;

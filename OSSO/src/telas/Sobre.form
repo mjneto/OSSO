@@ -32,7 +32,7 @@
                       <EmptySpace min="-2" pref="162" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="textoSubtitulo" max="32767" attributes="0"/>
-                          <Component id="jLabel1" max="32767" attributes="0"/>
+                          <Component id="iconeOSSO" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="130" pref="130" max="-2" attributes="0"/>
                   </Group>
@@ -64,7 +64,7 @@
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="textoSubtitulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jLabel1" max="32767" attributes="0"/>
+              <Component id="iconeOSSO" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="textoEquipe" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -108,7 +108,7 @@
         <Property name="text" type="java.lang.String" value="Baseado em c&#xf3;digo GNU"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="iconeOSSO">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">

@@ -51,20 +51,15 @@
                           <Component id="textoPerfil" linkSize="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="campocadastroLogin" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campocadastroNome" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="campocadastroLogin" alignment="0" pref="380" max="32767" attributes="0"/>
                           <Component id="campocadastroFone" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="campocadastroPerfil" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="campocadastroID" pref="380" max="32767" attributes="0"/>
-                                  <Component id="campocadastroSenha" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="campocadastroNome" alignment="0" max="32767" attributes="0"/>
+                          <Component id="campocadastroPerfil" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="campocadastroID" alignment="0" max="32767" attributes="0"/>
+                          <Component id="campocadastroSenha" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                      <EmptySpace pref="108" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="botaoCreate" linkSize="3" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="botaoRead" linkSize="3" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -81,14 +76,14 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="botaoCreate" linkSize="4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="botaoRead" linkSize="4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="botaoUpdate" linkSize="4" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="campocadastroID" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="textoID" linkSize="2" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
@@ -122,10 +117,10 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="botaoDelete" linkSize="4" min="-2" pref="70" max="-2" attributes="0"/>
                   <Component id="botaoCancela" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoDelete" linkSize="4" min="-2" pref="70" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="49" max="32767" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

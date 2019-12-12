@@ -42,20 +42,30 @@
                           <Component id="textoOSValor" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="campoOSResp" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campoOSServico" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campoOSValor" pref="387" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="botaoPrint" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="textoOSUn" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="campoOSResp" alignment="0" pref="387" max="32767" attributes="0"/>
+                                  <Component id="campoOSServico" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="campoOSValor" max="32767" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="textoOSUn" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="botaoMenos" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="campoOSnumUN" linkSize="5" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="campoOSUN" linkSize="5" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="botaoMais" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="campoOSUn" min="-2" pref="52" max="-2" attributes="0"/>
+                              <Component id="clearOS" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="botaoPrint" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="clearOS" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -88,7 +98,7 @@
                           </Group>
                           <Component id="checkOSOrcamento" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="61" max="32767" attributes="0"/>
+                      <EmptySpace pref="71" max="32767" attributes="0"/>
                       <Component id="painelOSCliente" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -122,11 +132,22 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="botaoCreate" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="botaoRead" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="botaoDelete" linkSize="1" alignment="1" min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="botaoUpdate" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="campoOSServico" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textoOSServico" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="campoOSServico" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="clearOS" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -139,27 +160,17 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="campoOSValor" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="textoOSValor" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="botaoPrint" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoOSUn" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="textoOSUn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="botaoCreate" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoRead" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoOSnumUN" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="botaoMenos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="botaoMais" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="campoOSUN" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="botaoDelete" linkSize="1" alignment="1" min="-2" pref="70" max="-2" attributes="0"/>
-                          <Component id="botaoUpdate" linkSize="1" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="botaoPrint" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -349,11 +360,6 @@
         <Property name="text" type="java.lang.String" value="* Servi&#xe7;os"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="campoOSServico">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Obrigat&#xf3;rio"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="textoOSResp">
       <Properties>
         <Property name="text" type="java.lang.String" value="Respons&#xe1;vel"/>
@@ -369,6 +375,7 @@
     <Component class="javax.swing.JTextField" name="campoOSValor">
       <Properties>
         <Property name="text" type="java.lang.String" value="0"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="botaoCreate">
@@ -450,26 +457,51 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="clearOSMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="campoOSUn">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
-            <StringItem index="0" value="M"/>
-            <StringItem index="1" value="M2"/>
-            <StringItem index="2" value="M3"/>
-            <StringItem index="3" value="Pt"/>
-            <StringItem index="4" value="CJ"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JLabel" name="textoOSUn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Un."/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="campoOSServico">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="campoOSServicoItemStateChanged"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JTextField" name="campoOSUN">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="campoOSnumUN">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="1"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="botaoMais">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="+"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoMaisActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="botaoMenos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="-"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoMenosActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
