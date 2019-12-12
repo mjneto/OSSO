@@ -67,20 +67,20 @@ public class OS extends javax.swing.JInternalFrame {
                 pst.setBoolean(1, false);
             }
             pst.setString(2, (String) campoOSSituacao.getSelectedItem());
-            pst.setString(3, campoOSServico.getText());
             pst.setString(3, campoOSResp.getText());
-            pst.setString(4, campoOSServico.getText());
+            pst.setString(4, (String) campoOSServico.getSelectedItem());
             pst.setString(5, campoOSValor.getText().replace(",", "."));
             pst.setString(6, campoIDCliente.getText());
             /*Verificação de ID vinculada a OS e o serviço*/
-            if (campoIDCliente.getText().isEmpty() || campoOSServico.getText().isEmpty()){
+            if (campoIDCliente.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios");
             } else {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "OS Cadastrada");
                     campoIDCliente.setText(null);
-                    campoOSServico.setText(null);
+                    campoOSSituacao.setSelectedIndex(1);
+                    campoOSServico.setSelectedIndex(1);
                     campoOSResp.setText(null);
                     campoOSValor.setText(null);
                     checkOSOrcamento.setSelected(false);
@@ -105,9 +105,10 @@ public class OS extends javax.swing.JInternalFrame {
                 checkOSOrcamento.setSelected(rs.getBoolean(3));
                 campoOSSituacao.setSelectedItem(rs.getString(4));
                 campoOSResp.setText(rs.getString(5));
-                campoOSServico.setText(rs.getString(6));
-                campoOSValor.setText(rs.getString(7));
-                campoIDCliente.setText(rs.getString(8));
+                campoOSServico.setSelectedItem(rs.getString(6));
+                campoOSUn.setSelectedItem(rs.getString(7));
+                campoOSValor.setText(rs.getString(8));
+                campoIDCliente.setText(rs.getString(9));
                 botaoCreate.setEnabled(false);
                 campoOSNomecliente.setEnabled(false);
                 checkOSOrcamento.setEnabled(false);
@@ -134,20 +135,19 @@ public class OS extends javax.swing.JInternalFrame {
                 pst.setBoolean(1, false);
             }
             pst.setString(2, (String) campoOSSituacao.getSelectedItem());
-            pst.setString(3, campoOSServico.getText());
             pst.setString(3, campoOSResp.getText());
-            pst.setString(4, campoOSServico.getText());
+            pst.setString(4, (String) campoOSServico.getSelectedItem());
             pst.setString(5, campoOSValor.getText().replace(",", "."));
             pst.setString(6, campoOSID.getText());
             /*Verificação de ID vinculada a OS e o serviço*/
-            if (campoIDCliente.getText().isEmpty() || campoOSServico.getText().isEmpty()){
+            if (campoIDCliente.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios");
             } else {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "OS Alterada");
                     campoIDCliente.setText(null);
-                    campoOSServico.setText(null);
+                    campoOSServico.setSelectedIndex(1);
                     campoOSResp.setText(null);
                     campoOSValor.setText(null);
                     checkOSOrcamento.setSelected(false);
@@ -174,7 +174,7 @@ public class OS extends javax.swing.JInternalFrame {
                 if (deletado > 0) {
                     JOptionPane.showMessageDialog(null, "OS Apagada");
                     campoIDCliente.setText(null);
-                    campoOSServico.setText(null);
+                    campoOSServico.setSelectedIndex(1);
                     campoOSResp.setText(null);
                     campoOSValor.setText("0");
                     checkOSOrcamento.setSelected(false);
@@ -231,7 +231,6 @@ public class OS extends javax.swing.JInternalFrame {
         scrollpaneOS = new javax.swing.JScrollPane();
         tabelaOSCliente = new javax.swing.JTable();
         textoOSServico = new javax.swing.JLabel();
-        campoOSServico = new javax.swing.JTextField();
         textoOSResp = new javax.swing.JLabel();
         campoOSResp = new javax.swing.JTextField();
         textoOSValor = new javax.swing.JLabel();
@@ -244,6 +243,7 @@ public class OS extends javax.swing.JInternalFrame {
         clearOS = new javax.swing.JLabel();
         campoOSUn = new javax.swing.JComboBox<>();
         textoOSUn = new javax.swing.JLabel();
+        campoOSServico = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Ordem de Serviço");
@@ -340,8 +340,6 @@ public class OS extends javax.swing.JInternalFrame {
 
         textoOSServico.setText("* Serviços");
 
-        campoOSServico.setToolTipText("Obrigatório");
-
         textoOSResp.setText("Responsável");
 
         textoOSValor.setText("Valor Total");
@@ -405,6 +403,8 @@ public class OS extends javax.swing.JInternalFrame {
 
         textoOSUn.setText("Un.");
 
+        campoOSServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alvenaria tijolo de barro a cutelo", "Calha em PVC (1/2 cana d= 100mm)", "Revestimento Cerâmico Padrão Alto", "Revestimento Cerâmico Padrão Médio", "Lajota ceramica - PEI IV - (Padrão Médio)", "Forro em gesso acartonado aramado", "Forro em gesso acartonado estruturado", "PVA externa (sobre pintura antiga)", "PVA interna c/ massa acrilica e selador", "Torre p/ caixa d'agua h=4.0m (alvenaria)" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -421,14 +421,14 @@ public class OS extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(campoOSResp, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoOSServico, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoOSValor, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(botaoPrint)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(textoOSUn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(campoOSUn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(campoOSUn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campoOSServico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(clearOS)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -456,7 +456,7 @@ public class OS extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(campoOSSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(checkOSOrcamento))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                         .addComponent(painelOSCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
         );
@@ -489,8 +489,8 @@ public class OS extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(campoOSServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textoOSServico))
+                                .addComponent(textoOSServico)
+                                .addComponent(campoOSServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(clearOS))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -513,7 +513,7 @@ public class OS extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botaoDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botaoUpdate, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {botaoCreate, botaoDelete, botaoRead, botaoUpdate});
@@ -593,9 +593,9 @@ public class OS extends javax.swing.JInternalFrame {
         campoOSNomecliente.setText(null);
         campoOSNomecliente.setEnabled(true);
         campoIDCliente.setText(null);
-        campoOSServico.setText(null);
+        campoOSServico.setSelectedIndex(1);
         campoOSResp.setText(null);
-        campoOSSituacao.setToolTipText(null);
+        campoOSSituacao.setSelectedIndex(1);
         campoOSValor.setText("0");
         botaoCreate.setEnabled(true);
         botaoPrint.setEnabled(false);
@@ -613,7 +613,7 @@ public class OS extends javax.swing.JInternalFrame {
     private javax.swing.JTextField campoOSID;
     private javax.swing.JTextField campoOSNomecliente;
     private javax.swing.JTextField campoOSResp;
-    private javax.swing.JTextField campoOSServico;
+    private javax.swing.JComboBox<String> campoOSServico;
     private javax.swing.JComboBox<String> campoOSSituacao;
     private javax.swing.JComboBox<String> campoOSUn;
     private javax.swing.JTextField campoOSValor;

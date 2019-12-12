@@ -5,6 +5,7 @@ import acessoBD.ConexaoBD;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import suporte.MD5;
 
 /**
  *
@@ -20,11 +21,12 @@ public class Login extends javax.swing.JFrame {
     /*Método para autenticação*/
     public void Logar(){
         String sql = "select * from usuarios where login = ? and senha = ?";
+        String senhaMD5;
         try {
             pst = conecta.prepareStatement(sql);
             pst.setString(1, campouser.getText());
-            //Comparar senha do bd com local com MD5
-            pst.setString(2, campopw.getText());
+            //Comparar senha do BD e local com MD5
+            pst.setString(2, senhaMD5 = MD5.gerarMD5(campopw.getText()));
             rs = pst.executeQuery();
             
             if (rs.next()){

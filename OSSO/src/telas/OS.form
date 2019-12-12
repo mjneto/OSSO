@@ -44,7 +44,6 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="campoOSResp" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campoOSServico" alignment="0" max="32767" attributes="0"/>
                           <Component id="campoOSValor" pref="387" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="botaoPrint" min="-2" max="-2" attributes="0"/>
@@ -53,6 +52,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="campoOSUn" min="-2" pref="52" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="campoOSServico" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="clearOS" min="-2" max="-2" attributes="0"/>
@@ -88,7 +88,7 @@
                           </Group>
                           <Component id="checkOSOrcamento" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="61" max="32767" attributes="0"/>
+                      <EmptySpace pref="71" max="32767" attributes="0"/>
                       <Component id="painelOSCliente" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -125,8 +125,8 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="campoOSServico" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textoOSServico" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="campoOSServico" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="clearOS" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -159,7 +159,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <EmptySpace pref="53" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -349,11 +349,6 @@
         <Property name="text" type="java.lang.String" value="* Servi&#xe7;os"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="campoOSServico">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Obrigat&#xf3;rio"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="textoOSResp">
       <Properties>
         <Property name="text" type="java.lang.String" value="Respons&#xe1;vel"/>
@@ -470,6 +465,27 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Un."/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="campoOSServico">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="10">
+            <StringItem index="0" value="Alvenaria tijolo de barro a cutelo"/>
+            <StringItem index="1" value="Calha em PVC (1/2 cana d= 100mm)"/>
+            <StringItem index="2" value="Revestimento Cer&#xe2;mico Padr&#xe3;o Alto"/>
+            <StringItem index="3" value="Revestimento Cer&#xe2;mico Padr&#xe3;o M&#xe9;dio"/>
+            <StringItem index="4" value="Lajota ceramica - PEI IV - (Padr&#xe3;o M&#xe9;dio)"/>
+            <StringItem index="5" value="Forro em gesso acartonado aramado"/>
+            <StringItem index="6" value="Forro em gesso acartonado estruturado"/>
+            <StringItem index="7" value="PVA externa (sobre pintura antiga)"/>
+            <StringItem index="8" value="PVA interna c/ massa acrilica e selador"/>
+            <StringItem index="9" value="Torre p/ caixa d&apos;agua h=4.0m (alvenaria)"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
