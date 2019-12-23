@@ -450,6 +450,8 @@ public class OS extends javax.swing.JInternalFrame {
             }
         });
 
+        campoOSServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alvenaria tijolo de barro a cutelo", "Calha em PVC (1/2 cana d= 100mm)", "Revestimento Cerâmico Padrão Alto", "Revestimento Cerâmico Padrão Médio", "Lajota ceramica - PEI IV - (Padrão Médio)", "Forro em gesso acartonado aramado", "Forro em gesso acartonado estruturado", "PVA externa (sobre pintura antiga)", "PVA interna c/ massa acrilica e selador", "Torre p/ caixa d'agua h=4.0m (alvenaria)" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
